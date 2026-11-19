@@ -1,7 +1,7 @@
 ---
 name: qa-orchestrator
 description: Master QA Orchestrator implementing Angie Jones's dual-agent memory architecture. Delegates tasks to specialist subagents with bounded context from @memory-librarian.
-tools: ['agent', 'read', 'edit', 'search']
+tools: ['agent', 'read', 'edit', 'search', 'execute','runInTerminal']
 agents:
   - memory-librarian
   - excel-extractor
@@ -44,6 +44,7 @@ You orchestrate the end-to-end QA lifecycle without bloating context windows. Ea
    - Wait for the user's reply before showing the next case.
    - Update `approval_status` (`APPROVED` or `SKIPPED`) in `.qa-memory/working/testrail-drafts.json` and append an audit entry (`temp_id`, `decision`, `timestamp`, `notes`) to `human_approvals` in `.qa-memory/working/active-run.json`.
    - Repeat until zero `PENDING` cases remain.
+   
 
 3. **Gate 2 — TestRail Upload Authorization (MANDATORY PAUSE):**
    - Summarize the total `APPROVED` vs. `SKIPPED` cases.
@@ -52,6 +53,7 @@ You orchestrate the end-to-end QA lifecycle without bloating context windows. Ea
      - Log the upload authorization timestamp in `.qa-memory/working/active-run.json`.
      - Invoke `testrail-formatter` with instruction `UPLOAD`.
      - Verify `.qa-memory/working/approved-testrail-cases.json` is created with TestRail Case IDs.
+   If a delegated subagent lacks terminal access, execute `NODE_EXTRA_CA_CERTS=.qa-pipeline/corp-ca-bundle.pem node scripts/upload-testrail.js` directly from `qa-orchestrator`.
 
 ## Phase 3: Script Generation, Execution & Self-Healing Loop
 

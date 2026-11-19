@@ -6,7 +6,7 @@ if len(sys.argv) < 2:
     print("Usage: python scripts/parse_excel.py <path-to-excel-file>")
     sys.exit(1)
 
-input_path = Path(sys.argv)
+input_path = Path(sys.argv[1])
 if not input_path.exists():
     print(f"File not found: {input_path}")
     sys.exit(1)
@@ -21,7 +21,7 @@ for sheet_name in wb.sheetnames:
         continue
 
     lines.append(f"## Sheet: {sheet_name}\n")
-    headers = [str(h or "").replace("\n", " ").strip() for h in rows]
+    headers = [str(h or "").replace("\n", " ").strip() for h in rows[0]]
     lines.append("| " + " | ".join(headers) + " |")
     lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
 

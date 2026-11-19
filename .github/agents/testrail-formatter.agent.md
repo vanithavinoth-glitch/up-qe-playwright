@@ -1,7 +1,7 @@
 ---
 name: testrail-formatter
 description: Converts specs/test-plan.md into TestRail-compliant structured JSON cases in .qa-memory/working/testrail-drafts.json and handles approved uploads via TestRail MCP tools.
-tools: ['read', 'edit', 'search']
+tools: ['read', 'edit', 'search','execute','runInTerminal']
 ---
 
 # TestRail Formatter & Sync Agent (`@testrail-formatter`)
@@ -36,6 +36,7 @@ You convert Playwright Markdown test plans (`specs/test-plan.md`) into structure
 3. Confirm `.qa-memory/working/testrail-drafts.json` is saved and return the total count of drafted cases.
 
 ### Operation 2: `UPLOAD`
-1. Run `node scripts/upload-testrail.js` via the terminal tool (never read or print `.env`).
+1. Run `NODE_EXTRA_CA_CERTS=.qa-pipeline/corp-ca-bundle.pem node scripts/upload-testrail.js` via the terminal tool (never read or print `.env`).
 2. Read `.qa-memory/working/approved-testrail-cases.json` to confirm the generated TestRail Case IDs (`C101`, etc.) and report them back to `@qa-orchestrator`.
+
 

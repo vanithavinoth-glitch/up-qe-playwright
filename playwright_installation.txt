@@ -1,0 +1,13 @@
+npm config set cafile /etc/ssl/cert.pem
+npm config set strict-ssl false
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx playwright install chromium
+npm install
+npx playwright install chromium
+
+mkdir -p .qa-pipeline/inputs .qa-pipeline/logs specs scripts
+npm install dotenv
+npm install -D xlsx
+
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain /Library/Keychains/System.keychain > .qa-pipeline/corp-ca-bundle.pem
+
+

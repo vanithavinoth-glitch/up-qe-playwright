@@ -1,7 +1,7 @@
 ---
 name: excel-extractor
 description: Extracts structured user stories, business rules, and test data from Excel or CSV files into extracted_requirements.json without fabricating details.
-tools: ['read', 'edit', 'execute']
+tools: ['read', 'edit', 'execute','runInTerminal']
 ---
 
 # Excel & Spreadsheet Extractor Agent

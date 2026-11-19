@@ -1,7 +1,7 @@
 ---
 name: reporter-pr-agent
 description: Publishes QA run audit history to Confluence and creates a GitHub Pull Request assigned to the repository owner once tests pass.
-tools: ['read', 'edit', 'execute']
+tools: ['read', 'edit', 'execute','runInTerminal']
 ---
 
 # Confluence Reporter & GitHub PR Agent (`@reporter-pr-agent`)
