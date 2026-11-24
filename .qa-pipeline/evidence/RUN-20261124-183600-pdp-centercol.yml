@@ -1,0 +1,182 @@
+- generic [ref=f8e582]:
+  - generic [ref=f8e583]:
+    - heading "Sony WH-CH720N Active Noise Cancellation Wireless Bluetooth Over Ear Headphones with Mic, Adaptive Sound Control, Quick Charge, Up to 35Hrs Battery, Customized EQ- White" [level=1] [ref=f8e586]
+    - link "Visit the Sony Store" [ref=f8e589] [cursor=pointer]:
+      - /url: /stores/SonyIndia/page/9DD1D3D2-F019-4129-A76A-E3F6BE950E01?lp_asin=B0BS74M665&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto&bl_grd_status=override
+    - generic [ref=f8e591]:
+      - generic "4.2 out of 5 stars" [ref=f8e593]:
+        - button "4.2 out of 5 stars" [ref=f8e595] [cursor=pointer]: "4.2"
+      - link "17,561 Reviews" [ref=f8e600] [cursor=pointer]:
+        - /url: "#averageCustomerReviewsAnchor"
+        - text: (17,561)
+    - generic [ref=f8e601]: 500+ bought in past month
+    - separator [ref=f8e605]
+  - generic [ref=f8e608]:
+    - generic [ref=f8e609]: Limited time deal
+    - generic [ref=f8e614]:
+      - generic [ref=f8e615]:
+        - generic [ref=f8e616]: ₹7,989.00 with 47 percent savings
+        - generic [ref=f8e617]: "-47%"
+        - generic [aria-hidden] [ref=f8e619]: ₹7,989
+      - generic [ref=f8e623]:
+        - generic [ref=f8e624]: "M.R.P.: ₹14,990.00"
+        - generic [aria-hidden] [ref=f8e625]:
+          - text: "M.R.P.:"
+          - generic [ref=f8e626]:
+            - generic [ref=f8e627]: ₹14,990
+            - text: ₹14,990
+    - generic [ref=f8e629]: Inclusive of all taxes
+    - generic [ref=f8e630]:
+      - generic [ref=f8e631]: EMI starts at ₹281. No Cost EMI available
+      - button "EMI options" [ref=f8e633] [cursor=pointer]
+    - generic:
+      - table
+  - generic [ref=f8e641]:
+    - heading "Offers" [level=5] [ref=f8e645]
+    - region [ref=f8e647]:
+      - generic [ref=f8e649]:
+        - list [ref=f8e653]:
+          - listitem [ref=f8e654] [cursor=pointer]:
+            - generic [ref=f8e656]:
+              - heading "No Cost EMI" [level=6] [ref=f8e657]
+              - generic [ref=f8e659]:
+                - generic [ref=f8e660]: Upto ₹446.06 EMI interest savings on select Credit Cards, HDFC Bank Debit Cards, Bajaj Finserv EMI cards, Amazon Pay Later
+                - generic [aria-hidden] [ref=f8e661]: Upto ₹446.06 EMI interest savings on select Credit Cards…
+              - link "4 offers" [ref=f8e662]:
+                - /url: "#"
+          - listitem [ref=f8e663] [cursor=pointer]:
+            - generic [ref=f8e665]:
+              - heading "Bank Offer" [level=6] [ref=f8e666]
+              - generic [ref=f8e668]:
+                - generic [ref=f8e669]: Upto ₹2,500.00 discount on select Credit Cards
+                - generic [aria-hidden] [ref=f8e670]: Upto ₹2,500.00 discount on select Credit Cards
+              - link "50 offers" [ref=f8e671]:
+                - /url: "#"
+          - listitem [ref=f8e672] [cursor=pointer]:
+            - generic [ref=f8e674]:
+              - heading "Cashback" [level=6] [ref=f8e675]
+              - generic [ref=f8e677]:
+                - generic [ref=f8e678]: Upto ₹239.00 cashback as Amazon Pay Balance when you pay with Amazon Pay ICICI Bank Credit Cards
+                - generic [aria-hidden] [ref=f8e679]: Upto ₹239.00 cashback as Amazon Pay Balance when…
+              - link "1 offer" [ref=f8e680]:
+                - /url: "#"
+          - listitem [ref=f8e681] [cursor=pointer]:
+            - generic [ref=f8e683]:
+              - heading "Partner Offers" [level=6] [ref=f8e684]
+              - generic [ref=f8e686]:
+                - generic [ref=f8e687]:
+                  - text: Get GST invoice and save up to 18% on business purchases.
+                  - link "Sign up for free" [ref=f8e688]:
+                    - /url: /gp/b/ref=apay_upi_sopp?node=16179244031
+                - generic [aria-hidden] [ref=f8e689]: Get GST invoice and save up to 18% on business purchases.
+              - link "1 offer" [ref=f8e690]:
+                - /url: "#"
+        - button "Next page" [ref=f8e692] [cursor=pointer]
+  - region [ref=f8e698]:
+    - generic [ref=f8e700]:
+      - list [ref=f8e704]:
+        - listitem [ref=f8e705] [cursor=pointer]:
+          - button "10 days Service Centre Replacement" [ref=f8e710]
+        - listitem [ref=f8e711] [cursor=pointer]:
+          - button "Free Delivery" [ref=f8e715]
+        - listitem [ref=f8e716] [cursor=pointer]:
+          - button "1 Year Warranty" [ref=f8e720]
+        - listitem [ref=f8e721] [cursor=pointer]:
+          - button "Pay on Delivery" [ref=f8e725]
+        - listitem [ref=f8e726] [cursor=pointer]:
+          - button "Top Brand" [ref=f8e730]
+        - listitem [ref=f8e731] [cursor=pointer]:
+          - button "Amazon Delivered" [ref=f8e735]
+      - button "Next page" [ref=f8e737] [cursor=pointer]
+  - generic [ref=f8e746]:
+    - generic "Selected Colour is White. Tap to collapse." [ref=f8e747] [cursor=pointer]: "Colour: White"
+    - generic "There are 4 options." [ref=f8e750]:
+      - group "Make a Colour selection" [ref=f8e752]:
+        - radiogroup [ref=f8e753]:
+          - listitem [ref=f8e754]:
+            - generic [ref=f8e757] [cursor=pointer]:
+              - radio "White ₹7,989.00 with 47 percent savings ₹7,989.00 ₹14,990.00 ₹14,990.00 In stock" [checked] [ref=f8e758]
+              - generic [aria-hidden] [ref=f8e759]:
+                - separator [aria-hidden] [ref=f8e763]
+                - generic [ref=f8e769]:
+                  - generic [ref=f8e770]:
+                    - generic [ref=f8e771]: ₹7,989.00 with 47 percent savings
+                    - generic [ref=f8e772]: ₹7,989.00
+                  - generic [ref=f8e775]:
+                    - generic [ref=f8e776]: ₹14,990.00
+                    - text: ₹14,990.00
+          - listitem [ref=f8e777]:
+            - generic [ref=f8e780] [cursor=pointer]:
+              - radio "Black ₹7,989.00 with 47 percent savings ₹7,989.00 ₹14,990.00 ₹14,990.00 In stock" [ref=f8e781]
+              - generic [aria-hidden] [ref=f8e782]:
+                - separator [aria-hidden] [ref=f8e786]
+                - generic [ref=f8e792]:
+                  - generic [ref=f8e793]:
+                    - generic [ref=f8e794]: ₹7,989.00 with 47 percent savings
+                    - generic [ref=f8e795]: ₹7,989.00
+                  - generic [ref=f8e798]:
+                    - generic [ref=f8e799]: ₹14,990.00
+                    - text: ₹14,990.00
+          - listitem [ref=f8e800]:
+            - generic [ref=f8e803] [cursor=pointer]:
+              - radio "Blue ₹7,989.00 with 47 percent savings ₹7,989.00 ₹14,990.00 ₹14,990.00 In stock" [ref=f8e804]
+              - generic [aria-hidden] [ref=f8e805]:
+                - separator [aria-hidden] [ref=f8e809]
+                - generic [ref=f8e815]:
+                  - generic [ref=f8e816]:
+                    - generic [ref=f8e817]: ₹7,989.00 with 47 percent savings
+                    - generic [ref=f8e818]: ₹7,989.00
+                  - generic [ref=f8e821]:
+                    - generic [ref=f8e822]: ₹14,990.00
+                    - text: ₹14,990.00
+          - listitem [ref=f8e823]:
+            - generic [ref=f8e826] [cursor=pointer]:
+              - radio "Pink ₹7,989.00 with 47 percent savings ₹7,989.00 ₹14,990.00 ₹14,990.00 In stock" [ref=f8e827]
+              - generic [aria-hidden] [ref=f8e828]:
+                - separator [aria-hidden] [ref=f8e832]
+                - generic [ref=f8e838]:
+                  - generic [ref=f8e839]:
+                    - generic [ref=f8e840]: ₹7,989.00 with 47 percent savings
+                    - generic [ref=f8e841]: ₹7,989.00
+                  - generic [ref=f8e844]:
+                    - generic [ref=f8e845]: ₹14,990.00
+                    - text: ₹14,990.00
+        - navigation
+  - list [ref=f8e849]:
+    - rowgroup [ref=f8e850]:
+      - listitem [ref=f8e851]: Brand Sony
+      - listitem [ref=f8e852]: Colour White
+      - listitem [ref=f8e853]: Ear Placement Open Ear
+      - listitem [ref=f8e854]: Form Factor Over Ear
+      - listitem [ref=f8e855]: Impedance 325 Ohms
+  - generic [ref=f8e857]:
+    - separator [aria-hidden] [ref=f8e858]
+    - heading "About this item" [level=1] [ref=f8e859]
+    - list [ref=f8e860]:
+      - listitem [ref=f8e861]: Sony’s lightest Wireless Noise-cancelling headband ever
+      - listitem [ref=f8e862]: Up to 50-hour battery life with quick charging (3 min charge for up to 1 hour of playback)
+      - listitem [ref=f8e863]: Multi-Point Connection helps to pair with two Bluetooth devices at the same time
+      - listitem [ref=f8e864]: Take noise cancelling to the next level with Sony’s Integrated Processor V1,so you can fully immerse yourself in the music
+      - listitem [ref=f8e865]: Super comfortable and lightweight design ( 192 Grams )
+    - generic [ref=f8e866]:
+      - text: ›
+      - link "See more product details" [ref=f8e867] [cursor=pointer]:
+        - /url: "#productDetails"
+  - generic [ref=f8e874]:
+    - heading [level=5] [ref=f8e875]:
+      - paragraph [ref=f8e876]: Customers usually keep this item
+    - paragraph [ref=f8e878]: This product has fewer returns than average compared to similar products.
+  - link "Report an issue with this product" [ref=f8e883] [cursor=pointer]:
+    - /url: javascript:void(0)
+  - generic [ref=f8e886]:
+    - separator [aria-hidden] [ref=f8e887]
+    - heading "Check Compatibility" [level=2] [ref=f8e888]
+    - generic [ref=f8e896]:
+      - generic [ref=f8e897]: Choose your product
+      - list [ref=f8e900]:
+        - listitem [ref=f8e901]:
+          - button "Cellular Phone" [ref=f8e905] [cursor=pointer]
+        - listitem [ref=f8e906]:
+          - button "Tablet Computer" [ref=f8e910] [cursor=pointer]
+        - listitem [ref=f8e911]:
+          - button "Wearable Computer" [ref=f8e915] [cursor=pointer]
