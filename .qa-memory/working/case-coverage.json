@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-11-25T08:12:15.397Z",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "not_implemented": 0
+  },
+  "cases": [
+    {
+      "testrail_id": "C9078561",
+      "temp_id": "TC-AMZ-004",
+      "module": "Amazon Public Search",
+      "title": "Search 'portable ssd 1tb', open first non-sponsored product, verify title and price, add to cart and verify confirmation",
+      "status": "PASSED",
+      "spec_file": "e2e/amazon/portable-ssd-1tb-pdp.spec.ts",
+      "error": null
+    }
+  ]
+}

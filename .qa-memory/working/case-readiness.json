@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-11-25T13:40:00+05:30",
+  "preflight_note": "preflight.js reported 3 failures (APP_USERNAME/APP_PASSWORD missing in .env, APP_URL not the confirmed QA host). These checks target the authenticated flexplus QA app and do not affect this public, unauthenticated amazon.in case (no login, no QA-host dependency). Flagged for the orchestrator; must be fixed before any flexplus case is reviewed or run.",
+  "cases": [
+    {
+      "testrail_id": "C9078561",
+      "temp_id": "TC-AMZ-004",
+      "target_spec": "e2e/amazon/portable-ssd-1tb-pdp.spec.ts",
+      "verdict": "READY",
+      "ui_facts": [
+        {
+          "needed": "Home page search box locator and no-interstitial check (case step 1)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=1] (getByRole('searchbox', { name: 'Search Amazon.in' }) / #twotabsearchtextbox; no captcha observed)",
+          "found": true
+        },
+        {
+          "needed": "Search results URL pattern and result-card selector for 'portable ssd 1tb' (case step 2)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=2] (URL /s?k=portable+ssd+1tb&ref=nb_sb_noss; [data-component-type=\"s-search-result\"] cards present)",
+          "found": true
+        },
+        {
+          "needed": "First non-sponsored result locator, product link a:has(h2), popup (target=_blank) handling, PDP URL /\\/dp\\// (case step 3)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=3] (popup observed and must be handled via page.waitForEvent('popup'); PDP URL matched /\\/dp\\//)",
+          "found": true
+        },
+        {
+          "needed": "Product title locator, visible and non-empty (case step 4)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=4] and caveats[1] (MUST use span#productTitle — bare #productTitle is a strict-mode violation: span + hidden input[name=productTitle] both match)",
+          "found": true
+        },
+        {
+          "needed": "Price locators: #corePriceDisplay_desktop_feature_div .a-price-whole with digits and ₹ symbol, no .a-offscreen (case step 5)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=5] (whole '19,999' and symbol '₹' visible; 'Never use .a-offscreen')",
+          "found": true
+        },
+        {
+          "needed": "Add to Cart button locator and click behavior (case step 6)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=6] (getByRole('button', { name: 'Add to cart', exact: true }) / input#add-to-cart-button; click navigates in-place to /cart/smart-wagon?newItems=...; #nav-cart-count was '0' before click)",
+          "found": true
+        },
+        {
+          "needed": "Cart-added confirmation assertions — resolves the '⚠️ UNVERIFIED selector' note in approved-testrail-cases.json step 7",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > steps[step_number=7] and evidence_notes (live-verified 2026-11-25, RUN-20261125-132600, snapshot .playwright-cli/page-2026-11-25T08-03-23-330Z.yml): URL /\\/cart\\/smart-wagon/, getByRole('heading', { name: 'Added to cart' }) level 1, #nav-cart-count == '1'; NOT a side-sheet in this flow",
+          "found": true
+        },
+        {
+          "needed": "BLOCKED-on-interstitial precondition (CAPTCHA/robot-check/consent must fail, never bypass)",
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > evidence_notes ('No CAPTCHA/robot-check/consent interstitial encountered') plus reference pattern failIfBlocked() in e2e/amazon/bluetooth-speaker-pdp.spec.ts",
+          "found": true
+        }
+      ],
+      "data": [
+        {
+          "needed": "Search query 'portable ssd 1tb' (only data input; public site, no login, no cart precondition beyond fresh browser context)",
+          "strategy": "fixed_fixture",
+          "helper": null,
+          "found": true,
+          "source": "user_journeys.json > journeys[UJ-AMZ-004] > data_requirements ('Search query portable ssd 1tb; no account or test data needed'); approved-testrail-cases.json preconditions (clean session implies empty cart). No e2e/helpers/data.ts helper required for this public-site case."
+        }
+      ],
+      "depends_on_other_cases": false,
+      "missing": [],
+      "generator_notes": [
+        "Use span#productTitle, NOT bare #productTitle (strict-mode violation: 2 matching nodes).",
+        "Handle PDP popup (target=_blank): run all PDP + add-to-cart steps on the popup page object (pattern in e2e/amazon/bluetooth-speaker-pdp.spec.ts).",
+        "Add to Cart navigates the popup page in-place to /cart/smart-wagon; assert URL /\\/cart\\/smart-wagon/, heading 'Added to cart' (level 1), and #nav-cart-count == '1'. Fallback caveat: confirmation may render as a side-sheet in some sessions (user_journeys.json > UJ-AMZ-004 > caveats[2]).",
+        "Assert non-empty title and digits-in-price, not fixed product/price values; never use .a-offscreen for price.",
+        "Fail with BLOCKED annotation on any CAPTCHA/robot-check/consent interstitial; never bypass."
+      ]
+    }
+  ]
+}
