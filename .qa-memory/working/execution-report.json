@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-11-25T08:12:15.399Z",
+  "suite": "chromium",
+  "overall_status": "PASSED",
+  "total": 1,
+  "passed": 1,
+  "failed": 0,
+  "skipped": 0,
+  "not_implemented": 0,
+  "failed_tests": [],
+  "coverage": ".qa-memory/working/case-coverage.json"
+}

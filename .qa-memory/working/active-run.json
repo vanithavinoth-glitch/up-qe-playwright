@@ -1,0 +1,63 @@
+{
+  "run_id": "RUN-20261125-132600",
+  "started_at": "2026-11-25T13:26:00+05:30",
+  "status": "COMPLETED",
+  "inputs": [
+    ".qa-pipeline/inputs/amazon-scenario.csv"
+  ],
+  "requirement": "REQ-AMZ-04 — Amazon.in portable SSD search + add to cart",
+  "agents_executed": [
+    "memory-librarian (RETRIEVE amazon-india-public-search)",
+    "excel-extractor (output: extracted_requirements.json)",
+    "playwright-test-planner (output: specs/test-plan.md)",
+    "testrail-formatter (FORMAT: .qa-memory/working/testrail-drafts.json)",
+    "testrail-formatter (UPLOAD: TC-AMZ-004 -> C9078561)",
+    "playwright-cli direct live verification (ui-explorer skipped per user; journey UJ-AMZ-004 added to user_journeys.json; validate-journeys OK)",
+    "spec-readiness-reviewer (C9078561 READY)",
+    "playwright-test-generator (output: e2e/amazon/portable-ssd-1tb-pdp.spec.ts; lint OK; --list OK, 1 test)",
+    "orchestrator-direct-run (test-runner-logger is flexplus-only by policy; 1 passed, chromium, 8.3s, first attempt, 0 healing)",
+    "reporter-pr-agent (Confluence audit + GitHub PR)"
+  ],
+  "human_approvals": [
+    {
+      "temp_id": "TC-AMZ-004",
+      "decision": "APPROVED",
+      "timestamp": "2026-11-25T13:30 IST (2026-11-25T08:00:56.351Z)",
+      "notes": "Gate 1: user replied Approve"
+    },
+    {
+      "temp_id": "Gate 2 - TestRail upload",
+      "decision": "AUTHORIZED",
+      "timestamp": "2026-11-25T13:31 IST (2026-11-25T08:01:21.573Z)",
+      "notes": "User replied Yes to upload 1 approved case"
+    }
+  ],
+  "upload_outcome": {
+    "testrail_case_ids_created": 1,
+    "uploaded_cases": [
+      "C9078561 (TC-AMZ-004, section Agent_testcase_population 683374, suite Master 661)"
+    ]
+  },
+  "testrail_case_ids": [
+    "C9078561"
+  ],
+  "playwright_execution": {
+    "generated_specs": [
+      "e2e/amazon/portable-ssd-1tb-pdp.spec.ts"
+    ],
+    "overall_status": "PASSED",
+    "passed": 1,
+    "failed": 0,
+    "duration": "8.3s (chromium project, first attempt)",
+    "healing_attempts": 0,
+    "failure_cause": "None - 1/1 PASSED on first attempt"
+  },
+  "key_discoveries": [
+    "Add to Cart click navigates to /cart/smart-wagon with 'Added to cart' heading and #nav-cart-count=1",
+    "Bare #productTitle is now a strict-mode violation (use span#productTitle)"
+  ],
+  "phase_4": {
+    "status": "IN_PROGRESS",
+    "reason": "Confluence audit publish and GitHub PR creation in progress"
+  }
+}

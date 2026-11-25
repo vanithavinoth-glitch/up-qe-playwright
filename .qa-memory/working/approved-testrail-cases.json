@@ -1,0 +1,41 @@
+{
+  "uploaded_cases": [
+    {
+      "testrail_id": "C9078561",
+      "temp_id": "TC-AMZ-004",
+      "module": "Amazon Public Search",
+      "title": "Search 'portable ssd 1tb', open first non-sponsored product, verify title and price, add to cart and verify confirmation",
+      "preconditions": "Clean (fresh) browser session: no cookies, no stored state, no logged-in Amazon account. No items in cart (fresh context implies cart count is 0 / absent). Desktop viewport (default Playwright chromium project settings). Blocking condition (applies to every step): if at any point a CAPTCHA, robot-check, or consent interstitial is presented, the test MUST fail immediately with a BLOCKED status/annotation; these interstitials must NEVER be bypassed, solved, or clicked through. Requirement traceability: REQ-AMZ-04 (extracted_requirements.json, 'Search for Portable SSD and Add to Cart'). Target URL: https://amazon.in. Target spec file: e2e/amazon/portable-ssd-1tb-pdp.spec.ts (Playwright project: chromium).",
+      "steps": [
+        {
+          "step": "Navigate to https://amazon.in.",
+          "expected": "Amazon.in home page loads. The search box is visible: getByRole('searchbox', { name: 'Search Amazon.in' }). No CAPTCHA/robot-check/consent interstitial (otherwise BLOCKED)."
+        },
+        {
+          "step": "Click the search box, type 'portable ssd 1tb', and submit by pressing Enter.",
+          "expected": "Search results page loads. URL matches /\\/s\\?.*k=portable(\\+|%20)ssd(\\+|%20)1tb/i (case-insensitive). At least one result card is present: [data-component-type=\"s-search-result\"]."
+        },
+        {
+          "step": "Locate the first non-sponsored result: page.locator('[data-component-type=\"s-search-result\"]').filter({ hasNotText: 'Sponsored' }).first(), then click its product link a:has(h2). Note: the link may open a popup (target=_blank) — handle via popup promise and continue on the new page if one opens.",
+          "expected": "Product detail page (PDP) opens (in same tab or popup). PDP URL matches /\\/dp\\//."
+        },
+        {
+          "step": "On the PDP, verify the product title.",
+          "expected": "#productTitle is visible and its text content is non-empty."
+        },
+        {
+          "step": "On the PDP, verify the product price.",
+          "expected": "#corePriceDisplay_desktop_feature_div .a-price-whole is visible and contains digits; the ₹ symbol is present in the price block. Do NOT use .a-offscreen for price assertions."
+        },
+        {
+          "step": "Click the Add to Cart button: getByRole('button', { name: 'Add to cart', exact: true }).",
+          "expected": "Button is visible/enabled and the click succeeds without error."
+        },
+        {
+          "step": "Verify the cart-added confirmation.",
+          "expected": "One of: an 'Added to cart' confirmation message / cart side-sheet appears, OR the cart count indicator increments to 1. ⚠️ UNVERIFIED selector: the exact confirmation selector ('Added to cart' message, cart side-sheet, or cart count badge) has NOT been verified against the live site and MUST be verified live before generating the final assertions in e2e/amazon/portable-ssd-1tb-pdp.spec.ts."
+        }
+      ]
+    }
+  ]
+}
