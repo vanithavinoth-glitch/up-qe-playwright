@@ -15,7 +15,16 @@ async function uploadToTestRail() {
 
   const draftsPath = path.join('.qa-memory', 'working', 'testrail-drafts.json');
   const { drafts } = JSON.parse(fs.readFileSync(draftsPath, 'utf8'));
-  const approved = drafts.filter((d) => d.approval_status === 'APPROVED');
+  const requestedIds = process.env.TESTRAIL_CASE_IDS?.split(',').map((id) => id.trim()).filter(Boolean);
+  if (requestedIds && (new Set(requestedIds).size !== requestedIds.length ||
+      requestedIds.some((id) => !drafts.some((draft) => draft.temp_id === id && draft.approval_status === 'APPROVED')))) {
+    throw new Error('Requested case IDs must be unique and approved.');
+  }
+  const outPath = path.join('.qa-memory', 'working', 'approved-testrail-cases.json');
+  const uploadedCases = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, 'utf8')).uploaded_cases : [];
+  const uploadedIds = new Set(uploadedCases.map((testCase) => testCase.temp_id));
+  const approved = drafts.filter((draft) => draft.approval_status === 'APPROVED' &&
+    (!requestedIds || requestedIds.includes(draft.temp_id)) && !uploadedIds.has(draft.temp_id));
 
   if (approved.length === 0) {
     console.log('No APPROVED test cases found to upload.');
@@ -32,7 +41,6 @@ async function uploadToTestRail() {
     sectionId = sections[0].id;
   }
 
-  const uploadedCases = [];
   for (const tc of approved) {
     const payload = {
       title: tc.title,
@@ -63,11 +71,10 @@ async function uploadToTestRail() {
       preconditions: tc.preconditions,
       steps: tc.steps,
     });
+    fs.writeFileSync(outPath, JSON.stringify({ uploaded_cases: uploadedCases }, null, 2));
     console.log(`Uploaded ${tc.temp_id} -> TestRail Case C${created.id}`);
   }
 
-  const outPath = path.join('.qa-memory', 'working', 'approved-testrail-cases.json');
-  fs.writeFileSync(outPath, JSON.stringify({ uploaded_cases: uploadedCases }, null, 2));
   console.log(`Saved ${uploadedCases.length} uploaded cases to ${outPath}`);
 }
 
