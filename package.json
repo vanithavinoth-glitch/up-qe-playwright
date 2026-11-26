@@ -5,7 +5,12 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "qa:validate-journeys": "node scripts/validate-journeys.js",
+    "qa:lint-specs": "node scripts/lint-specs.js",
+    "qa:coverage": "node scripts/update-coverage.js",
+    "test:flexplus": "playwright test --project=flexplus",
+    "qa:preflight": "node scripts/preflight.js"
   },
   "devDependencies": {
     "@playwright/cli": "^0.1.25",
