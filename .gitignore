@@ -93,3 +93,21 @@ Thumbs.db
 /playwright/.auth/
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+
+# ==========================================
+# QA agent run state (per-tester, not shared)
+# ==========================================
+.qa-memory/working/*
+!.qa-memory/working/.gitkeep
+.qa-memory/episodic/*
+!.qa-memory/episodic/.gitkeep
+.qa-pipeline/archive/
+.qa-pipeline/evidence/
+.qa-pipeline/logs/
+.qa-pipeline/extracted-excel.md
+.qa-pipeline/corp-ca-bundle.pem
+.playwright-mcp/
+e2e/c9075*.spec.ts
+!e2e/c9075705-amazon-wireless-mouse-search.spec.ts
+user_journeys_x.json
+modified_user_journey.json
