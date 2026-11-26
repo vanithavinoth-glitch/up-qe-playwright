@@ -1,28 +1,114 @@
-# Virtual Environment
+# ==========================================
+# Environment Variables & Secrets (CRITICAL)
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ==========================================
+# Python / Virtual Environment
+# ==========================================
 venv/
+.venv/
 env/
-
-# Python
+ENV/
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
 *.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Pytest
-.pytest_cache/
+# ==========================================
+# Node / Playwright
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Playwright
+# Playwright artifacts & test results
 test-results/
 playwright-report/
+playwright/.cache/
 
-# IDE
-.vscode/
-.idea/
+# ==========================================
+# LangGraph / SQLite State Checkpoints & Logs
+# ==========================================
+logs/*
+!logs/.gitkeep
+*.db
+*.sqlite
+*.sqlite3
+.langgraph_checkpoint.db*
 
-# OS
+# ==========================================
+# macOS System Files
+# ==========================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Project Specific
-reports/
-logs/
+# ==========================================
+# IDE & Editor Configurations
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/mcp.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.idea/
+*.swp
+*.swo
+*~
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+# Playwright CLI output (may contain credentials)
+.playwright-cli/
+
+# ==========================================
+# QA agent run state (per-tester, not shared)
+# ==========================================
+.qa-memory/working/*
+!.qa-memory/working/.gitkeep
+.qa-memory/episodic/*
+!.qa-memory/episodic/.gitkeep
+.qa-pipeline/archive/
+.qa-pipeline/evidence/
+.qa-pipeline/logs/
+.qa-pipeline/extracted-excel.md
+.qa-pipeline/corp-ca-bundle.pem
+.playwright-mcp/
+e2e/c9075*.spec.ts
+!e2e/c9075705-amazon-wireless-mouse-search.spec.ts
+user_journeys_x.json
+modified_user_journey.json

@@ -1,0 +1,67 @@
+npm config set cafile /etc/ssl/cert.pem
+npm config set strict-ssl false
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx playwright install chromium
+npm install
+npx playwright install chromium
+
+mkdir -p .qa-pipeline/inputs .qa-pipeline/logs specs scripts
+npm install dotenv
+npm install -D xlsx
+
+security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain /Library/Keychains/System.keychain > .qa-pipeline/corp-ca-bundle.pem
+
+npm install -g @playwright/cli@latest
+playwright-cli install --skills
+
+@playwright/cli reduces token consumption by roughly 75% to 90% during live browser exploration because it runs browser commands via simple terminal calls and saves page snapshots to disk instead of streaming massive accessibility trees and base64 screenshots directly into your LLM's chat context.
+
+1. Why @playwright/cli Saves So Many Tokens vs. MCP
+
+
+Feature	Playwright MCP (Default in init-agents)	@playwright/cli (Token-Efficient CLI)
+How the Agent Interacts	Loads 20+ tool schemas into every prompt and dumps full page DOM/accessibility snapshots directly into the LLM chat history.	Runs concise terminal commands (playwright-cli open <url>, playwright-cli click e12) and writes large snapshots to local .yml files on disk.
+Token Cost per Page	~10,000–25,000 tokens per action because full page trees stay in conversation history.	~500–1,500 tokens per action because the agent only reads the specific lines it needs.
+Best Use Case in Your Setup	Built-in playwright-test-planner, generator, and healer (which expect playwright-test MCP tools).	Your custom @ui-explorer agent when crawling multi-page applications to build user_journeys.json.
+
+
+2. How to Add @playwright/cli to Your Project (3 Steps)
+
+You can keep playwright-test MCP active for Playwright's built-in Planner, Generator, and Healer, while switching your custom @ui-explorer to use @playwright/cli so live UI discovery barely touches your Copilot quota.
+
+Step 1: Install @playwright/cli and Register Its Agent Skill
+
+Run these two commands in your VS Code terminal:
+bash
+npm install -g @playwright/cli@latest
+playwright-cli install --skills
+Use code with caution.
+(This installs the CLI globally and creates a .github/skills/playwright-cli/ skill folder in your workspace that Copilot agents automatically recognize.)
+
+Step 2: Update .github/agents/ui-explorer.agent.md to Use playwright-cli
+
+Ensure 'runInTerminal' is enabled in ui-explorer.agent.md's YAML frontmatter and instruct it to use playwright-cli commands instead of MCP browser tools:
+yaml
+---
+name: ui-explorer
+description: Systematically explore an authorized web application using @playwright/cli for token-efficient discovery and write observable end-to-end user journeys to user_journeys.json.
+tools: ['read', 'edit', 'search', 'runInTerminal']
+---
+Use code with caution.
+Add this CLI Execution Rule inside ui-explorer.agent.md right under ## Exploration Strategy:
+markdown
+## Token-Efficient Browser Control (`playwright-cli`)
+Use `playwright-cli` terminal commands instead of verbose browser MCP snapshots:
+1. Open the app: `playwright-cli open "$APP_URL"`
+2. Capture a compact element map (saved to disk): `playwright-cli snapshot`
+3. Read only the relevant lines of the generated snapshot file to find element refs (`e1`, `e2`, etc.).
+4. Interact using element refs: `playwright-cli fill e3 "$APP_USERNAME"`, `playwright-cli click e5`
+5. Close the browser session when finished: `playwright-cli close`
+Use code with caution.
+
+Step 3: Verify It Works
+
+1. Run playwright-cli --version in your terminal to confirm installation.
+2. When you next run @qa-orchestrator against a live APP_URL, @ui-explorer will crawl your app through playwright-cli in the terminal—keeping your Copilot quota usage near ~2–3% per full run.
+Would you like to test @playwright/cli on a quick URL right now, or review your .gitignore to ensure all local secrets and CLI snapshot logs stay untracked in Git?
+
+

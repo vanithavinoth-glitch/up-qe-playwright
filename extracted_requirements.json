@@ -1,0 +1,41 @@
+[
+  {
+    "id": "REQ-001",
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Valid sign-in reaches the VPP dashboard",
+    "preconditions": "The configured APP_URL is reachable and the test account can sign in. Use only https://qa-test-flexkiosk.ks.autogridsystems.net and QA-only data. Store credentials in environment configuration, not in specs, reports, screenshots, or TestRail case text.",
+    "steps": "1. Navigate to APP_URL.\n2. Sign in with the configured QA account.",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Authentication succeeds and the VPP dashboard loads.",
+    "roles": "Configured QA account (documented role details: unknown)",
+    "validations": "unknown",
+    "notes": "Exact dashboard URL, heading, or welcome element after successful sign-in: unknown (not specified in the document)."
+  },
+  {
+    "id": "REQ-002",
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Wrong password is denied and no authenticated view is exposed (user stays on sign-in page)",
+    "preconditions": "The configured APP_URL is reachable. The document specifies this is attempted in a later isolated test. Do not record credentials in test artifacts.",
+    "steps": "1. Navigate to APP_URL.\n2. Attempt sign-in with invalid credentials (incorrect password).",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Access is denied with an actionable validation or authentication error; no authenticated view is exposed (the user remains on the sign-in page).",
+    "roles": "unknown",
+    "validations": "An actionable validation or authentication error is shown; exact error message text: unknown.",
+    "notes": "The document groups invalid and missing credentials under one step: 'Attempt invalid or missing credentials in a later isolated test.' Specific wrong-password error wording and any lockout behavior: unknown."
+  },
+  {
+    "id": "REQ-003",
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Empty/missing credentials are denied and no authenticated view is exposed (user stays on sign-in page)",
+    "preconditions": "The configured APP_URL is reachable. The document specifies this is attempted in a later isolated test. Do not record credentials in test artifacts.",
+    "steps": "1. Navigate to APP_URL.\n2. Attempt sign-in with missing credentials (empty Username and/or Password).",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Access is denied with an actionable validation or authentication error; no authenticated view is exposed (the user remains on the sign-in page).",
+    "roles": "unknown",
+    "validations": "An actionable validation or authentication error is shown; exact required-field message text and whether the Log in control is disabled: unknown.",
+    "notes": "The document groups invalid and missing credentials under one step: 'Attempt invalid or missing credentials in a later isolated test.' Behavior differences between empty username, empty password, or both empty: unknown."
+  }
+]

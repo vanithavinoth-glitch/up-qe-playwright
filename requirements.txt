@@ -1,0 +1,22 @@
+# LangGraph & Core Agent Framework
+langgraph>=0.2.20
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langgraph-checkpoint-sqlite>=2.0.0
+
+# Data Validation & Typing
+pydantic>=2.8.0
+
+# Document & Ingestion Parsing
+openpyxl>=3.1.5
+pandas>=2.2.0
+markdown>=3.6
+
+# API Clients for Integrations
+requests>=2.32.0
+atlassian-python-api>=3.41.0
+PyGithub>=2.3.0
+
+# Environment & Utilities
+python-dotenv>=1.0.1
+rich>=13.7.1  # For beautiful terminal UI during HITL approvals

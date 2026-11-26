@@ -1,0 +1,1311 @@
+{
+  "application": "FlexPlus",
+  "base_url": "APP_URL from .env",
+  "authentication": {
+    "entry_route": "/#/pages/login",
+    "observed": "Username and Password fields with a Log in button; valid configured credentials reached the VPP dashboard.",
+    "credential_values_recorded": false
+  },
+  "journeys": [
+    {
+      "journey_id": "UJ-011",
+      "name": "Sign in to the dashboard",
+      "user_goal": "Sign in and reach the Market VPP Products dashboard",
+      "starting_point": {
+        "page": "Login",
+        "path": "/#/pages/login"
+      },
+      "preconditions": [
+        "Configured credentials"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "page": "Login",
+          "action": "Inspect the sign-in form without entering credentials or submitting",
+          "element": "Username, Password and Log in",
+          "observable_result": "Each recorded role locator matched one visible control."
+        },
+        {
+          "step_number": 2,
+          "page": "Dashboard",
+          "action": "Review earlier authenticated dashboard evidence",
+          "element": "Market VPP Products",
+          "observable_result": "An earlier snapshot shows the Market VPP Products text; the current authenticated session was not available for verification."
+        }
+      ],
+      "pages_visited": [
+        "Login"
+      ],
+      "forms": [
+        {
+          "name": "Login",
+          "open_action": "Navigate to /#/pages/login",
+          "controls": [
+            {
+              "label": "Username",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Username', exact: true })",
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Password",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Password', exact: true })",
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Log in",
+              "control_type": "button",
+              "locator": "getByRole('button', { name: 'Log in', exact: true })",
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "submit_locator": "getByRole('button', { name: 'Log in', exact: true })",
+          "cancel_locator": "None observed",
+          "validation_messages": [],
+          "success_result": null,
+          "duplicate_result": null
+        }
+      ],
+      "detail_views": [
+        {
+          "view": "Market VPP Products dashboard landmark",
+          "open_action": "Previously reached after login; no navigation or login performed in this inspection",
+          "fields": [
+            {
+              "label": "Visible text",
+              "value": "Market VPP Products"
+            },
+            {
+              "label": "Candidate locator",
+              "value": "getByText('Market VPP Products').filter({ visible: true }).first()"
+            },
+            {
+              "label": "Locator verification",
+              "value": "Not checked in a current authenticated session; candidate follows the existing visibleText helper."
+            }
+          ]
+        }
+      ],
+      "unverifiable_in_ui": [],
+      "testability": "UI_ONLY",
+      "data_requirements": [
+        {
+          "requirement": "Configured QA login",
+          "status": "Environment variables present; credentials not read or submitted"
+        }
+      ],
+      "evidence_snapshots": [
+        ".playwright-cli/c9078082-login-readonly.yml",
+        ".playwright-cli/page-2026-11-23T15-27-31-296Z.yml",
+        ".playwright-cli/page-2026-11-24T03-09-31-560Z.yml"
+      ],
+      "observed_validations": [],
+      "alternate_paths": [],
+      "end_state": "Login form inspected read-only; dashboard landmark supported by earlier snapshots only.",
+      "requires_human_authorization": false,
+      "exploration_status": "PARTIALLY_EXPLORED",
+      "blocked_reason": "No active authenticated Playwright CLI session was available; a fresh login was not submitted to preserve the shared session.",
+      "confidence": "MEDIUM",
+      "evidence_notes": [
+        "The anonymous login locators were checked for a single visible match without filling or clicking them.",
+        "Earlier dashboard snapshots show Market VPP Products; the 2026-11-23 snapshot also shows Loading programs. The prior modified journey records /#/pages/sched/vpp as the dashboard route.",
+        "No current authenticated dashboard locator check or login success was performed."
+      ]
+    },
+    {
+      "name": "Dashboard - market VPP products",
+      "route": "/#/pages/sched/vpp",
+      "journey_id": "UJ-001",
+      "user_goal": "Inspect dashboard views, graph controls and the selected context's events without changing data",
+      "starting_point": {"page": "Dashboard", "path": "/#/pages/sched/vpp"},
+      "preconditions": ["An already authenticated session with dashboard access"],
+      "steps": [
+        {"step_number": 1, "page": "Login", "action": "Inspect the existing shared session", "element": "Sign-in page", "observable_result": "The session is at /#/pages/login with Username, Password and Log in visible. No login was attempted."},
+        {"step_number": 2, "page": "Dashboard", "action": "Review earlier dashboard snapshots", "element": "Flexibility, Graphs and Dashboard view", "observable_result": "Historical snapshots show Graphs with legends and some No data to display charts, a Programs table in Market products grouping, and a Market products table in Programs grouping."},
+        {"step_number": 3, "page": "Dashboard", "action": "Review earlier menus and event dialogs", "element": "Chart layers, Flex capacity and Events List", "observable_result": "Historical snapshots show an empty Chart layers menu, three Flex capacity options, a populated Events table in Market products grouping and an empty Events dialog in Programs grouping."}
+      ],
+      "pages_visited": ["Login (current session)", "Dashboard and Events dialog (historical snapshots only)"],
+      "forms": [
+        {
+          "name": "Select Market Product",
+          "open_action": "getByTestId('selected-market-product').click()",
+          "controls": [
+            {"label": "Market product row", "control_type": "button", "locator": "getByRole('button', { name: 'regtest_FCAS_L1automated-mp-' })", "default_value": null, "required": "unknown", "required_evidence": null},
+            {"label": "Select", "control_type": "button", "locator": "getByTestId('entity-select-button')", "default_value": null, "required": "unknown", "required_evidence": null}
+          ],
+          "submit_locator": "getByTestId('entity-select-button')",
+          "cancel_locator": "getByRole('dialog').getByRole('button', { name: 'Cancel' })",
+          "validation_messages": [],
+          "success_result": "Selecting the displayed product returned to the dashboard with its existing selection.",
+          "evidence_notes": ["Cancel locator is a snapshot-based candidate and was not exercised; selection only changed dashboard display context."]
+        },
+        {
+          "name": "Set Granularity / Duration",
+          "open_action": "getByText('Granularity:1 hDuration:1 h').click()",
+          "controls": [
+            {"label": "Granularity", "control_type": "dropdown-button", "locator": "getByRole('button', { name: 'hour' }).first()", "options": ["5 minutes", "15 minutes", "30 minutes", "1 hour"], "default_value": "1 hour", "required": "unknown", "required_evidence": null},
+            {"label": "Duration", "control_type": "dropdown-button", "locator": "getByRole('button', { name: 'hour' }).nth(1)", "options": ["1 hour", "2 hours", "3 hours", "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "11 hours", "12 hours", "13 hours", "14 hours", "15 hours", "16 hours", "17 hours", "18 hours", "19 hours", "20 hours", "21 hours", "22 hours", "23 hours", "24 hours"], "default_value": "1 hour", "required": "unknown", "required_evidence": null},
+            {"label": "AM/PM", "control_type": "radio", "locator": "getByRole('radio', { name: 'AM/PM' })", "default_value": "checked", "required": "unknown", "required_evidence": null, "locator_status": "snapshot-based candidate; not exercised"},
+            {"label": "24 H", "control_type": "radio", "locator": "getByRole('radio', { name: '24 H' })", "default_value": "unchecked", "required": "unknown", "required_evidence": null, "locator_status": "snapshot-based candidate; not exercised"}
+          ],
+          "submit_locator": "getByRole('dialog').getByRole('button', { name: 'Set' })",
+          "cancel_locator": "getByRole('dialog').getByRole('button', { name: 'Cancel' })",
+          "validation_messages": [],
+          "success_result": null,
+          "evidence_notes": ["Set was not used. Cancel was attempted but the open duration menu intercepted the click; the isolated session subsequently returned to login. Submit and cancel locators are snapshot-based candidates."]
+        }
+      ],
+      "current_observations_2026_11_24": {
+        "case_ids": ["C9078084", "C9078085", "C9078086"],
+        "route": "/#/pages/sched/vpp",
+        "session": "Valid QA login succeeded in a separate context; the first tab was retained. The session later returned to login and one reauthentication attempt did not confirm dashboard access; authentication and dashboard-load failures were not distinguished. No further exploration was attempted.",
+        "selection": {
+          "grouping": "Market products",
+          "product": "regtest_FCAS_L1automated-mp-name-2025-03-03T165950",
+          "date": "Nov 24, 2026",
+          "product_selector_locator": "getByTestId('selected-market-product')",
+          "product_selection_method": "Open Select Market Product, select an existing product row, then Select; the dialog displays Market Product, Type, Market and Programs columns.",
+          "date_navigator": {"today": "Today was disabled", "previous_button_snapshot_name": "", "next_button_snapshot_name": "", "navigation_effect": "not exercised; locators not verified"}
+        },
+        "views": {
+          "flexibility": {"snapshot_label": "Flexibility", "locator": null, "table_heading": "Programs", "row_example": "01_regtest_mmp_1; ID regtest_mmp_1; Total products: 9", "switch_back": "not exercised"},
+          "graphs": {"locator": "getByText('Graphs')", "legend": ["Availability_Up", "Availability_Down"], "axis": "kW", "empty_state": "No data to display", "mixed_data_evidence": "On the selected product and date, 01_regtest_ erm_cpd showed the empty message; 01_regtest_mmp_1 had no empty message and showed numeric axis ticks -400 to 0. Exact series values and whether they represent telemetry were not verified.", "time_axis": "24. nov, 02:00 through 22:00, 25. nov"}
+        },
+        "controls": [
+          {"label": "Dashboard view", "snapshot_role": "button", "value": "Market products", "locator": null, "options": "not opened in this session"},
+          {"label": "Chart layers", "snapshot_role": "button", "locator": null, "options": "not opened in this session"},
+          {"label": "Flex capacity", "snapshot_role": "button", "value": "All (+/-)", "locator": null, "options": "not opened in this session"},
+          {"label": "Events List", "snapshot_role": "button", "locator": null, "outcome": "not opened in this session"},
+          {"label": "Refresh", "snapshot_role": "button", "snapshot_name": " Refresh", "state": "no disabled marker in settled snapshot; not activated", "locator": null},
+          {"label": "Export to CSV", "snapshot_role": "button", "snapshot_name": " Export to CSV", "outcome": "not activated", "locator": null}
+        ],
+        "unresolved": ["Current Programs grouping and table change, Flex capacity options and effects, and Chart layers options and effects were not checked.", "Events List, a date-specific empty state, closing the Events dialog, and a read-only method to establish an empty date were not checked.", "Date navigation, exact populated graph values, and known telemetry were not established. The numeric axis and absence of an empty message do not prove telemetry."]
+      },
+      "historical_observations": {
+        "source": "modified_user_journey.json UJ-001 and saved snapshots from 2026-11-24 UTC; not current-session verification",
+        "controls": [
+          {"label": "Flexibility", "snapshot_role": "generic", "snapshot_ref": "e430", "locator": null, "locator_status": "not verified in current session"},
+          {"label": "Graphs", "snapshot_role": "generic", "snapshot_ref": "e431", "locator": null, "locator_status": "not verified in current session"},
+          {"label": "Dashboard view", "snapshot_role": "button", "value": "Market products", "locator": "getByRole('button', { name: 'Market products' })", "locator_status": "historical action recorded in modified journey", "options": ["Market products", "Programs"]},
+          {"label": "Product selector", "snapshot_role": "generic", "snapshot_ref": "e439", "value": "regtest_FCAS_L1...", "locator": null, "options": "unknown"},
+          {"label": "Date navigator", "date": "Nov 23, 2026", "today": {"snapshot_role": "button", "name": "Today", "state": "disabled"}, "previous": {"snapshot_role": "button", "snapshot_ref": "e443", "locator": null}, "next": {"snapshot_role": "button", "snapshot_ref": "e445", "locator": null}},
+          {"label": "Granularity and Duration", "snapshot_role": "generic", "snapshot_ref": "e447", "snapshot_text": "Granularity:1 hDuration:", "visible_value": "1 h", "locator": null, "options": "unknown"},
+          {"label": "Chart layers", "snapshot_role": "button", "name": "Chart layers", "locator": null, "opened_menu_options": [], "context": "historical Market products grouping, Nov 23, 2026"},
+          {"label": "Flex capacity", "snapshot_role": "button", "name": "All (+/-)", "locator": "getByRole('button', { name: /All \\(\\+\\/-\\)/ })", "locator_status": "historical action recorded in modified journey", "options": ["All (+/-)", "Down DR (+)", "Up DR (-)"]},
+          {"label": "Refresh", "snapshot_role": "button", "snapshot_name": " Refresh", "snapshot_ref": "e463", "locator": null, "snapshot_state": "No disabled marker in historical snapshot; current enabled state unverified"},
+          {"label": "Export to CSV", "snapshot_role": "button", "snapshot_name": " Export to CSV", "snapshot_ref": "e465", "locator": null, "outcome": "Not activated"},
+          {"label": "Events List", "snapshot_role": "button", "name": "Events List", "locator": "getByRole('button', { name: 'Events List' })", "locator_status": "historical action recorded in modified journey"}
+        ],
+        "graph": {"legend": ["Availability_Up", "Availability_Down"], "axis": "kW", "empty_state": "No data to display", "context": "Nov 23, 2026; empty state appeared on some rows, not all rows", "populated_series_values": "unknown"},
+        "grouping": {"market_products_table_heading": "Programs", "programs_table_heading": "Market products", "selection_effects_on_data": "not independently verified in current session"}
+      },
+      "detail_views": [
+        {
+          "view": "Historical Events dialog - Market products grouping",
+          "open_action": "getByRole('button', { name: 'Events List' }).click() (recorded in modified journey; not performed in current session)",
+          "fields": [
+            {"label": "Date and grouping", "value": "Nov 23, 2026; Market products; selected product shown truncated as regtest_FCAS_L1..."},
+            {"label": "Columns", "value": ["Event ID", "Program", "Time", "Duration", "Status", "Market Product"]},
+            {"label": "Observed row", "value": {"Event ID": "2TYU03", "Program": "01_regtest_rateplan_2", "Time": "05:30 AM - 06:30 AM", "Duration": "1 h", "Status": "PAST", "Market Product": "regtest_FCAS_L1automated-mp-name-2025-03-03T165950"}},
+            {"label": "Close", "value": "Button accessible name Close; locator and close outcome not verified in current session"}
+          ]
+        },
+        {
+          "view": "Historical Events dialog - Programs grouping",
+          "open_action": "getByRole('button', { name: 'Events List' }).click() (recorded in modified journey; not performed in current session)",
+          "fields": [
+            {"label": "Date and grouping", "value": "Nov 23, 2026; Programs; selected program shown truncated"},
+            {"label": "Empty state", "value": "No events found for Nov 23, 2026"},
+            {"label": "Close", "value": "Button accessible name Close; locator and close outcome not verified in current session"}
+          ]
+        }
+      ],
+      "unverifiable_in_ui": [],
+      "testability": "UI_ONLY",
+      "data_requirements": [
+        {"requirement": "Authenticated dashboard session without changing cookies", "status": "missing: shared session currently displays sign-in"},
+        {"requirement": "Current product/date with known telemetry", "status": "not independently identified"},
+        {"requirement": "Current grouping, selection and date independently established to have no events", "status": "not independently identified; the historical date had different results in different groupings"},
+        {"requirement": "Current existing event row", "status": "not independently identified; historical row is not a guaranteed fixture"}
+      ],
+      "evidence_snapshots": [
+        ".playwright-cli/page-2026-11-24T09-58-27-585Z.yml",
+        ".playwright-cli/page-2026-11-24T09-58-41-369Z.yml",
+        ".playwright-cli/page-2026-11-24T09-58-52-717Z.yml",
+        ".playwright-cli/page-2026-11-24T09-59-10-419Z.yml",
+        ".playwright-cli/page-2026-11-24T09-59-19-931Z.yml",
+        ".playwright-cli/page-2026-11-24T09-59-33-272Z.yml",
+        ".playwright-cli/page-2026-11-24T09-59-50-880Z.yml",
+        ".playwright-cli/page-2026-11-24T10-00-02-680Z.yml",
+        ".playwright-cli/page-2026-11-24T10-35-20-300Z.yml",
+        ".playwright-cli/dashboard-readonly-20261124-current-login.yml",
+        ".playwright-cli/page-2026-11-24T03-10-04-367Z.yml",
+        ".playwright-cli/page-2026-11-24T03-10-13-286Z.yml",
+        ".playwright-cli/page-2026-11-24T03-10-19-198Z.yml",
+        ".playwright-cli/page-2026-11-24T03-11-08-716Z.yml",
+        ".playwright-cli/page-2026-11-24T03-11-28-359Z.yml",
+        ".playwright-cli/page-2026-11-24T03-11-34-451Z.yml",
+        ".playwright-cli/page-2026-11-24T03-11-59-704Z.yml",
+        ".playwright-cli/page-2026-11-24T03-12-08-609Z.yml"
+      ],
+      "observed_validations": [],
+      "alternate_paths": [],
+      "end_state": "The shared session was untouched. The isolated session returned to sign-in; current dashboard observations are partial and historical evidence is retained.",
+      "requires_human_authorization": false,
+      "exploration_status": "PARTIALLY_EXPLORED",
+      "blocked_reason": "The isolated session returned to login and reauthentication did not confirm dashboard access; Events List, grouping, chart layers and date navigation were not inspected.",
+      "confidence": "MEDIUM",
+      "evidence_notes": [
+        "Current sign-in snapshot: .playwright-cli/dashboard-readonly-20261124-current-login.yml. No credentials entered and no login, cookie change, refresh, export, dispatch or logout performed.",
+        "Historical modified journey says Refresh was disabled; historical snapshot page-2026-11-24T03-11-34-451Z.yml shows no disabled marker. Current post-load availability remains unknown.",
+        "Historical locators explicitly recorded in modified journey are retained; other snapshot references are evidence only, not verified reusable locators.",
+        "C9075731, C9075768 and C9078084-C9078086 require current authenticated inspection; date and telemetry fixtures must be independently established.",
+        "Later on 2026-11-24 an isolated valid QA login allowed partial dashboard inspection; see current_observations_2026_11_24 and new snapshots. The isolated session subsequently returned to login and one reauthentication attempt did not confirm dashboard access; no further login was attempted."
+      ],
+      "observed": [
+        "Market VPP Products dashboard with Flexibility and Graphs views.",
+        "Market product/program selectors, date navigation, granularity selector, Events List, Chart layers, Flex capacity, Refresh, and Export to CSV controls.",
+        "Program rows and chart content render; one graph displayed a No data state while another displayed plotted series."
+      ]
+    },
+    {
+      "name": "Monitoring",
+      "route": "/#/pages/monitoring",
+      "observed": [
+        "Program, Service points, and Devices views.",
+        "Program view provides market product and program selectors, date context, and graph panels.",
+        "Service-point and device views provide searchable, paginated lists.",
+        "Navigation exposes Resources and Advanced monitoring subroutes."
+      ]
+    },
+    {
+      "name": "Programs",
+      "route": "/#/pages/programs",
+      "observed": [
+        "Program list reports a total count, has a Program name search field, an Add program action, row action menus, and pagination.",
+        "Add Program opens fields for Identifier, Name, Program type, Time Zone, Description, and Program overview, plus Display on engage, Device Model Filtering Enabled, and Auto Assign Contacts at SP/Device checkboxes.",
+        "Subscriptions view selects an account and groups subscriptions by Accounts, Service Points, and Devices; Primary and Secondary labels are shown."
+      ],
+      "forms": [
+        {
+          "name": "Add Program",
+          "open_action": "getByRole('button', { name: /Add program/i })",
+          "open_precondition": "After navigating to /#/pages/programs, wait for page.waitForLoadState('networkidle') BEFORE clicking Add program. Clicking within ~2s of the button appearing shows an error panel 'configuring program types - please try again / Retry' (Retry closes the dialog) because program types have not finished loading.",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "controls": [
+            {
+              "label": "Identifier",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: /Identifier/ })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": "info icon beside label; no asterisk; server rejects empty submit"
+            },
+            {
+              "label": "Name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Name' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Program type",
+              "control_type": "dropdown-button",
+              "locator": "getByRole('button', { name: '(Select a program type)' })",
+              "options": [
+                "DERMS - Aggregate Flexible Capacity - Energy Storage",
+                "DR - Behavioral Demand Response",
+                "DR - Coincident Peak",
+                "DR - Critical Peak Pricing",
+                "DR - Direct Load Control",
+                "DR - Gas Demand Response",
+                "DR - Market Access Program",
+                "DR - Peak Day Rebate",
+                "DR - Time of Use",
+                "DR - Time of Use and Behavioral Demand Response",
+                "DR - Variable Peak Pricing",
+                "ESMS - Local Optimization Only",
+                "VPP - Aggregate Bidding Capacity - Energy Storage",
+                "VPP - Direct Marketing - Renewables"
+              ],
+              "default_value": "(Select a program type)",
+              "required": "true",
+              "required_evidence": "submitting with no type returned server error 404 'Could not find template with type equal to \\'\\''",
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Time Zone",
+              "control_type": "dropdown-button",
+              "locator": "getByRole('button', { name: 'America/Vancouver' })",
+              "options": [
+                "America/Vancouver",
+                "Asia/Kolkata",
+                "Pacific/Honolulu",
+                "America/Los_Angeles",
+                "America/Edmonton",
+                "(2 more not recorded; 7 options total)"
+              ],
+              "default_value": "America/Vancouver",
+              "required": "false",
+              "required_evidence": "has a default value"
+            },
+            {
+              "label": "Description",
+              "control_type": "textarea",
+              "locator": "getByRole('textbox', { name: 'Description' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Program overview",
+              "control_type": "textarea",
+              "locator": "getByRole('textbox', { name: 'Program overview' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Display on engage",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Display on engage' })",
+              "default_value": "unchecked",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Device Model Filtering Enabled",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Device Model Filtering Enabled' })",
+              "default_value": "unchecked",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Auto Assign Contacts at SP/Device",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Auto Assign Contacts at SP/Device' })",
+              "default_value": "unchecked",
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "close_locator": "getByRole('button', { name: 'Close' }) (shown as '×')",
+          "validation_messages": [
+            "No client-side validation: Submit with empty form sends POST /api/droms/entity_create/programs and the server replies with an error panel: 'Add resource failed — 404 -- Not Found : Failed to createCould not find template with type equal to \\'\\'' (buttons: Cancel, Back). No record created."
+          ],
+          "success_result": "POST entity_create/programs returns 201; dialog shows 'Operation successful' with an 'OK' button; program count increased by exactly 1 (1388 -> 1389).",
+          "duplicate_result": "Re-submitting the same identifier/name: POST returns 422; error panel: 'Add resource failed — 422 -- Unprocessable Content : Failed to createName A program with this name already exists, Uid has already been taken' (buttons: Cancel, Back). Count unchanged.",
+          "values_used_for_submission": {
+            "Identifier": "QA_AUTO_<timestamp>_Program",
+            "Name": "QA_AUTO_<timestamp>_Program",
+            "Program type": "DR - Time of Use",
+            "Time Zone": "default (America/Vancouver)",
+            "Description": "QA_AUTO synthetic description",
+            "Program overview": "QA_AUTO synthetic overview"
+          }
+        }
+      ],
+      "created_records": [
+        "QA_AUTO_1795161213105_Program (DR - Time of Use) created in QA during exploration on 2026-11-20; not deleted."
+      ],
+      "list_page": {
+        "count_text": "Showing 10 of <N> programs",
+        "search_locator": "getByPlaceholder(/Program name/)  (UNVERIFIED: not found in last automated attempt; re-inspect with a snapshot before writing TC-016)",
+        "columns": [
+          "Program",
+          "ID",
+          "Type",
+          "Status",
+          "Alerts",
+          "Subscriptions",
+          "Market products",
+          "Actions"
+        ],
+        "search_behavior": "unknown"
+      }
+    },
+    {
+      "name": "Resources",
+      "route": "/#/pages/resources/accounts",
+      "observed": [
+        "Resource views include Accounts, Service points, Devices, Resource Hierarchy, Groups, and Rate Plans.",
+        "Account list has an Account ID search field, Add account action, sortable columns, row action menus, and pagination.",
+        "Add account opens Identifier, Account Name, Parent Account ID, address, Rate Class, contact, and custom-attribute fields.",
+        "Monitoring also exposes searchable service-point and device lists."
+      ],
+      "forms": [
+        {
+          "name": "Add Account",
+          "open_route": "/pages/resources/accounts",
+          "open_action": "getByRole('button', { name: /Add account/i })",
+          "open_precondition": "After openRoute, await page.waitForLoadState('networkidle') BEFORE clicking the Add button (dialogs can show a transient error if opened too early). To close a dropdown menu click the row label, NOT Escape (Escape closes the whole dialog).",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "controls": [
+            {
+              "label": "Identifier",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Identifier' })",
+              "options": null,
+              "default_value": null,
+              "required": "true",
+              "required_evidence": "empty submit: 400 'id field(s) is/are required'"
+            },
+            {
+              "label": "Account Name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Account Name' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Account Type",
+              "control_type": "dropdown-button",
+              "locator": "dialog.locator('tr', { hasText: 'Account Type' }).getByRole('button')",
+              "options": [
+                "Residential",
+                "Commercial",
+                "Industrial"
+              ],
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Parent Account ID",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Parent Account ID' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Street",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Street' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "City",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'City' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "State",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'State' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Zip",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Zip' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Country",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Country' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Rate Class",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Rate Class' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "First name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'First name' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Last name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Last name' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Email",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Email' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Phone",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Phone' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "custom_attributes": "Collapsible 'Custom attributes' section with 22 additional text inputs (e.g. _425_uk_test, 4_28_uk_test, billingid); not exercised.",
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "close_locator": "getByRole('button', { name: 'Close' })",
+          "validation_messages": [
+            "No client-side validation. Empty Submit -> POST entity_create/accounts returns 400; panel 'Add resource failed — 400 -- Bad Request : Failed to createid field(s) is/are required' (buttons Back, Cancel). No record created."
+          ],
+          "success_result": null,
+          "success_result_note": "Valid submit NOT yet exercised (deferred to the TC-027 implementation run). Program create (see Programs form) shows 201 and 'Operation successful'.",
+          "duplicate_result": null
+        }
+      ],
+      "evidence_notes": [
+        "Structured form data captured live 2026-11-20 from dialog snapshots; empty submit created nothing."
+      ]
+    },
+    {
+      "name": "Energy markets",
+      "route": "/#/pages/energymarkets",
+      "observed": [
+        "Market products list includes Name, ID, Market, Product type, Commitment type, and Programs columns, plus Add product.",
+        "Add market product opens Name, Market, Product type, Commitment type, and Droop Curve controls.",
+        "Navigation exposes a Droop Curves view; Add Droop Curve opens Name and Nominal, Low Start, Low Stop, High Start, and High Stop frequency fields with a chart preview."
+      ],
+      "forms": [
+        {
+          "name": "Add market product",
+          "open_route": "/pages/energymarkets",
+          "open_action": "getByRole('button', { name: /Add product/i })",
+          "open_precondition": "After openRoute, await page.waitForLoadState('networkidle') BEFORE clicking the Add button (dialogs can show a transient error if opened too early). To close a dropdown menu click the row label, NOT Escape (Escape closes the whole dialog).",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "controls": [
+            {
+              "label": "Name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Name' })",
+              "options": null,
+              "default_value": null,
+              "required": "true",
+              "required_evidence": "empty submit: 400 'name field(s) is/are required'"
+            },
+            {
+              "label": "Market",
+              "control_type": "dropdown-button",
+              "locator": "dialog.locator('tr', { hasText: 'Market' }).getByRole('button')",
+              "options": [
+                "JEPX",
+                "AEMO-NEM",
+                "ISO-NE",
+                "NYISO",
+                "ERCOT",
+                "ENTSOE",
+                "CAISO",
+                "MISO",
+                "OCCTO",
+                "PJM"
+              ],
+              "default_value": "JEPX",
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Product type",
+              "control_type": "dropdown-button",
+              "locator": "dialog.locator('tr', { hasText: 'Product type' }).getByRole('button')",
+              "options": [
+                "Dynamic Frequency Response",
+                "Event Based"
+              ],
+              "default_value": "DYNAMIC_FREQUENCY_RESPONSE",
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Commitment type",
+              "control_type": "dropdown-button",
+              "locator": "dialog.locator('tr', { hasText: 'Commitment type' }).getByRole('button')",
+              "options": [
+                "Droop Curve Commitment"
+              ],
+              "default_value": "DROOP_CURVE_COMMITMENT",
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Droop Curve",
+              "control_type": "dropdown-button",
+              "locator": "dialog.locator('tr', { hasText: 'Droop Curve' }).getByRole('button')",
+              "options": [
+                "regtest_L1",
+                "Test 01",
+                "AEMO FCAS",
+                "dc_56",
+                "Demo",
+                "322",
+                "FCR Droop Curve",
+                "regtest_R1",
+                "SEAU_FCAS_RAISE",
+                "regtest_R3",
+                "Test 01-02",
+                "FCR Test",
+                "SEAU_FCAS_LOWER",
+                "droop_curve_01",
+                "dc_56a",
+                "regtest_L3",
+                "regtest_R2",
+                "VD_DC",
+                "regtest_L2"
+              ],
+              "default_value": "regtest_L1",
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            }
+          ],
+          "extra_actions": [
+            "getByRole('button', { name: 'View droop curve' })"
+          ],
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "close_locator": "getByRole('button', { name: 'Close' })",
+          "validation_messages": [
+            "Empty Submit -> 400; panel 'Add market product failed — 400 -- Bad Request name field(s) is/are required' (buttons Back, Cancel). Nothing created."
+          ],
+          "success_result": null,
+          "success_result_note": "Valid submit NOT yet exercised (deferred to TC-034 implementation).",
+          "duplicate_result": null,
+          "note": "Dropdown menu labels differ from the collapsed value (e.g. shown 'DYNAMIC_FREQUENCY_RESPONSE', menu 'Dynamic Frequency Response')."
+        },
+        {
+          "name": "Add Droop Curve",
+          "open_route": "/pages/energymarkets/droop_curves",
+          "open_action": "getByRole('button', { name: /Add Droop Curve/i })",
+          "open_precondition": "After openRoute, await page.waitForLoadState('networkidle') BEFORE clicking the Add button (dialogs can show a transient error if opened too early). To close a dropdown menu click the row label, NOT Escape (Escape closes the whole dialog).",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "controls": [
+            {
+              "label": "Name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Name' })",
+              "options": null,
+              "default_value": null,
+              "required": "true",
+              "required_evidence": "empty submit: 400 'name field(s) is/are required'"
+            },
+            {
+              "label": "Nominal (Hz)",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Nominal (Hz)' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Low Start (Hz)",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Low Start (Hz)' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Low Stop (Hz)",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Low Stop (Hz)' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "High Start (Hz)",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'High Start (Hz)' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "High Stop (Hz)",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'High Stop (Hz)' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "preview": "Chart preview and a points table (shows NaN until frequencies are entered).",
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "close_locator": "getByRole('button', { name: 'Close' })",
+          "validation_messages": [
+            "Empty Submit -> 400; panel 'Add droop curve failed — 400 -- Bad Request : failed to create droop curvename field(s) is/are required' (buttons Back, Cancel). Nothing created."
+          ],
+          "success_result": null,
+          "success_result_note": "Valid submit NOT yet exercised.",
+          "duplicate_result": null
+        }
+      ],
+      "evidence_notes": [
+        "Structured form data captured live 2026-11-20; empty submits created nothing."
+      ]
+    },
+    {
+      "name": "Reports - events",
+      "route": "/#/pages/reports/events",
+      "observed": [
+        "Events report provides an Event ID filter and a paginated table with Program, Event ID, Day, Time, Event Reason, Market product, Status, and Actions."
+      ]
+    },
+    {
+      "name": "Messaging",
+      "route": "/#/pages/messages/dashboard",
+      "observed": [
+        "Messaging dashboard renders a large message list.",
+        "Navigation exposes Templates and Types; the customization flow describes Email, SMS, and Voice message settings.",
+        "Add template opens a selection step with 30 message types and Email, Voice, and SMS enabled columns; Continue is disabled until a type is selected."
+      ],
+      "forms": [
+        {
+          "name": "Add message template (2 steps)",
+          "open_route": "/pages/messages/templates",
+          "open_action": "getByRole('button', { name: /Add template/i })",
+          "open_precondition": "After openRoute, await page.waitForLoadState('networkidle') BEFORE clicking the Add button (dialogs can show a transient error if opened too early). To close a dropdown menu click the row label, NOT Escape (Escape closes the whole dialog).",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "steps": [
+            "Step 1 'select template type': table of 30 types (columns Types, Email Enabled, Voice Enabled, SMS Enabled), e.g. ad_hoc_notification, coincident_peak, event_active_resource_added, event_active_resource_removed, event_canceled, event_ended. Continue is DISABLED until a type row is clicked (row locator: dialog.getByRole('row').filter({ hasText: '<type>' })).",
+            "Step 2: template editor for the chosen type."
+          ],
+          "controls": [
+            {
+              "label": "Template type (step 1 row)",
+              "control_type": "button",
+              "locator": "dialog.getByRole('row').filter({ hasText: 'ad_hoc_notification' })",
+              "options": [
+                "ad_hoc_notification",
+                "coincident_peak",
+                "event_active_resource_added",
+                "event_active_resource_removed",
+                "event_canceled",
+                "event_ended",
+                "(30 types total; remaining not recorded)"
+              ],
+              "default_value": null,
+              "required": "true",
+              "required_evidence": "Continue stays disabled until one is selected"
+            },
+            {
+              "label": "Template name",
+              "control_type": "text",
+              "locator": "dialog.getByRole('textbox').first()",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Channel",
+              "control_type": "radio",
+              "locator": "getByRole('radio', { name: 'Email' | 'SMS' | 'Voice' })",
+              "options": [
+                "Email",
+                "SMS",
+                "Voice"
+              ],
+              "default_value": "Email",
+              "required": "false",
+              "required_evidence": "Email is preselected"
+            },
+            {
+              "label": "Enable",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Enable' })",
+              "options": null,
+              "default_value": "checked",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Message language",
+              "control_type": "dropdown-button",
+              "locator": "dialog.getByRole('button', { name: 'Armenian' })",
+              "options": [
+                "Armenian",
+                "Canadian French",
+                "English",
+                "French",
+                "Hindi",
+                "Italian",
+                "Simplified Chinese",
+                "Vietnamese"
+              ],
+              "default_value": "Armenian",
+              "required": "unknown",
+              "required_evidence": null,
+              "option_select_locator": "page.getByText('<option text>', { exact: true }).filter({ visible: true }).first()"
+            },
+            {
+              "label": "Email Subject variable picker",
+              "control_type": "dropdown-button",
+              "locator": "dialog.getByRole('button', { name: 'Select one...' }).nth(0)",
+              "options": [
+                "Tenant Name",
+                "Event Start Time",
+                "Event End Time",
+                "Event Start Date",
+                "Event End Date",
+                "Contact First Name",
+                "Contact Last Name",
+                "Program Name"
+              ],
+              "default_value": "Select one...",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Email body variable picker",
+              "control_type": "dropdown-button",
+              "locator": "dialog.getByRole('button', { name: 'Select one...' }).nth(1)",
+              "options": [
+                "Tenant Name",
+                "Event Start Time",
+                "Event End Time",
+                "Event Start Date",
+                "Event End Date",
+                "Contact First Name",
+                "Contact Last Name",
+                "Program Name",
+                "Unsubscribe Link",
+                "Resources Table",
+                "Resources Table with Unmasked IDs",
+                "Buy Through Days Report"
+              ],
+              "default_value": "Select one...",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Email body (plain text) variable picker",
+              "control_type": "dropdown-button",
+              "locator": "dialog.getByRole('button', { name: 'Select one...' }).nth(2)",
+              "options": [
+                "Tenant Name",
+                "Event Start Time",
+                "Event End Time",
+                "Event Start Date",
+                "Event End Date",
+                "Contact First Name",
+                "Contact Last Name",
+                "Program Name",
+                "Unsubscribe Link",
+                "Resources Table Text",
+                "Resources Table Text with Unmasked IDs",
+                "Buy Through Days Report Text"
+              ],
+              "default_value": "Select one...",
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "rich_text_note": "Email body is a rich-text editor inside an iframe with toolbar buttons (Source code, Bold, Italic, ...). Email Subject also uses an editor iframe.",
+          "continue_locator": "getByRole('button', { name: 'Continue' })",
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "close_locator": "getByRole('button', { name: 'Close' })",
+          "validation_messages": [
+            "Step 1: Continue is disabled until a type is selected. Step 2 empty Submit not yet exercised."
+          ],
+          "success_result": null,
+          "success_result_note": "Template save NOT exercised: needs a safe QA-only recipient configuration (plan TC-042/043).",
+          "duplicate_result": null
+        }
+      ],
+      "evidence_notes": [
+        "Both steps opened and closed without saving, captured live 2026-11-20."
+      ]
+    },
+    {
+      "name": "Operational tools",
+      "route": "/#/pages/monitoring/jobstatus",
+      "observed": [
+        "Job Status has Planning optimizer, Dispatch optimizer, and Baseline views.",
+        "Selecting Dispatch optimizer left the view at Loading Data; no dispatch command or action control became visible during inspection.",
+        "Dashboard Events List opens an Events table with Event ID, Program, Time, Duration, Status, and Market Product. The inspected event was PAST and no dispatch action was exposed.",
+        "Tools menu also exposes Alerts Dashboard, OEM Cockpit, Error Console, Flex Configurator, Advanced Monitoring, SCADA HMI, Help Center, and Support Helpdesk."
+      ],
+      "forms": [],
+      "no_forms_reason": "Observed views only: Job Status tabs (Planning optimizer, Dispatch optimizer, Baseline), Events List table, and Tools menu links. Dispatch optimizer stayed on 'Loading Data' and no run/dispatch control was seen in the earlier exploration; re-verify with a settled-page snapshot before implementing TC-048/049."
+    },
+    {
+      "name": "Tenant settings and account menu",
+      "route": "/#/pages/tenant",
+      "observed": [
+        "Account menu exposes Settings and Log Out.",
+        "Settings includes tenant configuration lists and Custom attributes, with an Add attribute action."
+      ],
+      "forms": [
+        {
+          "name": "Add Custom Attribute",
+          "open_route": "/pages/tenant",
+          "open_action": "getByRole('button', { name: /Add attribute/i })",
+          "open_precondition": "After openRoute, await page.waitForLoadState('networkidle') BEFORE clicking the Add button (dialogs can show a transient error if opened too early). To close a dropdown menu click the row label, NOT Escape (Escape closes the whole dialog).",
+          "dialog_locator": "locator('[role=dialog]').filter({ visible: true }).first()",
+          "controls": [
+            {
+              "label": "Name",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Name' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Key",
+              "control_type": "text",
+              "locator": "getByRole('textbox', { name: 'Key' })",
+              "options": null,
+              "default_value": null,
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Applies to Accounts",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Applies to Accounts' })",
+              "options": null,
+              "default_value": "checked",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Applies to Service Points",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Applies to Service Points' })",
+              "options": null,
+              "default_value": "unchecked",
+              "required": "unknown",
+              "required_evidence": null
+            },
+            {
+              "label": "Applies to Devices",
+              "control_type": "checkbox",
+              "locator": "getByRole('checkbox', { name: 'Applies to Devices' })",
+              "options": null,
+              "default_value": "unchecked",
+              "required": "unknown",
+              "required_evidence": null
+            }
+          ],
+          "submit_locator": "getByRole('button', { name: 'Submit' })",
+          "cancel_locator": "getByRole('button', { name: 'Cancel' })",
+          "validation_messages": [],
+          "success_result": null,
+          "success_result_note": "Not submitted: changes tenant configuration; plan says review without adding values.",
+          "duplicate_result": null
+        }
+      ],
+      "evidence_notes": [
+        "Dialog opened and cancelled, captured live 2026-11-20."
+      ]
+    },
+    {
+      "journey_id": "UJ-010",
+      "name": "DLC program - review event dispatch scope, targeting and notification settings",
+      "user_goal": "Inspect how a DLC program event is dispatched (scope, targeted resources, notification settings) and which subscribed resources it can reach",
+      "route": "/#/pages/programs/program_details/DLC-Therm-Storage",
+      "starting_point": {
+        "page": "Programs - List",
+        "path": "/#/pages/programs/list"
+      },
+      "preconditions": [
+        "Logged in to the QA tenant",
+        "An enabled program of type dlc exists (observed: DLC-Therm-Storage, Enabled, 4 subscriptions)"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "page": "Programs - List",
+          "action": "Type 'dlc' in the Program name filter and press Enter",
+          "element": "textbox 'Program name'",
+          "observable_result": "Showing 2 of 2 programs: dlc_test_1k_program (Disabled, 1000 subscriptions) and DLC-Therm-Storage (Enabled, 4 subscriptions); both Type = dlc"
+        },
+        {
+          "step_number": 2,
+          "page": "Programs - List",
+          "action": "Click the program name DLC-Therm-Storage",
+          "element": "cell 'DLC-Therm-Storage'",
+          "observable_result": "Program Details opens with 12 tabs: Overview, Subscriptions, Events, Holidays, Market products, Alerts, Analytics Profiles, Constraints, CSV Downloads, Optimization, Utility User Notifications, Subscription Rules"
+        },
+        {
+          "step_number": 3,
+          "page": "Program Details - Subscriptions",
+          "action": "Open Subscriptions, then toggle Primary / Secondary",
+          "element": "cell 'Subscriptions'; 'Primary'; 'Secondary'",
+          "observable_result": "Both toggles list Accounts (4), Service Points (4), Devices (3) with subscription date ranges"
+        },
+        {
+          "step_number": 4,
+          "page": "Program Details - Subscription Rules",
+          "action": "Open Subscription Rules",
+          "element": "cell 'Subscription Rules'",
+          "observable_result": "Text: 'If an account is enrolled in a program, all the devices under that account will have secondary subscriptions'; Accounts-level contracts allowed (checked), eligible account types Residential, eligible rate classes None; Service-point-level contracts unchecked; Edit button present"
+        },
+        {
+          "step_number": 5,
+          "page": "Program Details - Events",
+          "action": "Open Events",
+          "element": "cell 'Events'",
+          "observable_result": "Table columns Event, Day, Time, Duration, Status, Dispatch Feedback; 2 rows (2GW50U, 1NVXJ0), both Oct 28, 2026 08:00 AM - 09:30 AM. No create-event control visible on this tab"
+        },
+        {
+          "step_number": 6,
+          "page": "Program Details - Events",
+          "action": "Click the event ID 1NVXJ0",
+          "element": "cell '1NVXJ0'",
+          "observable_result": "Dialog 'Event (demopreview-20261027-2-1NVXJ0)' with ID, Day, Start/End time, Duration, Status=Draft, Template (blank), Notification time='-', Dispatch type=PROGRAM, # Targeted resources=2"
+        },
+        {
+          "step_number": 7,
+          "page": "Program Details - Events",
+          "action": "Click the Dispatch Feedback cell of event 2GW50U",
+          "element": "cell in Dispatch Feedback column",
+          "observable_result": "Dialog 'Event dispatch feedback' shows 'No dispatch feedback found' with an OK button"
+        },
+        {
+          "step_number": 8,
+          "page": "Program Details - Utility User Notifications",
+          "action": "Open Utility User Notifications",
+          "element": "cell 'Utility User Notifications'",
+          "observable_result": "Text 'You can edit a utility user's notification at any time'; table Name, Email, Subscribe to notifications; per-user dropdown button shows 'All notifications' or 'No'"
+        },
+        {
+          "step_number": 9,
+          "page": "Resources - Groups",
+          "action": "Open Resources then Groups",
+          "element": "link 'Groups'",
+          "observable_result": "Groups table (Name, ID, Auto-generated, Actions) with a Group Name filter and an Add group button; many groups listed"
+        }
+      ],
+      "pages_visited": [
+        "Programs - List",
+        "Program Details - Overview/Subscriptions/Subscription Rules/Events/Utility User Notifications",
+        "Event detail dialog",
+        "Event dispatch feedback dialog",
+        "Resources - Groups"
+      ],
+      "forms": [],
+      "no_forms_reason": "Read-only inspection of views and dialogs; no creation form was opened or submitted in this journey.",
+      "detail_views": [
+        {
+          "view": "Event detail dialog (event 1NVXJ0)",
+          "open_action": "getByRole('cell', { name: '1NVXJ0' }).click() on Program Details > Events",
+          "fields": [
+            {
+              "label": "ID",
+              "value": "1NVXJ0"
+            },
+            {
+              "label": "Day",
+              "value": "Oct 28, 2026"
+            },
+            {
+              "label": "Start time",
+              "value": "08:00 AM"
+            },
+            {
+              "label": "End time",
+              "value": "09:30 AM"
+            },
+            {
+              "label": "Duration",
+              "value": "1 h 30 min"
+            },
+            {
+              "label": "Status",
+              "value": "Draft"
+            },
+            {
+              "label": "Template",
+              "value": ""
+            },
+            {
+              "label": "Notification time",
+              "value": "-"
+            },
+            {
+              "label": "Dispatch type",
+              "value": "PROGRAM"
+            },
+            {
+              "label": "# Targeted resources",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "view": "Event dispatch feedback dialog (event 2GW50U)",
+          "open_action": "click the cell in the Dispatch Feedback column of the event row",
+          "fields": [
+            {
+              "label": "Message",
+              "value": "No dispatch feedback found"
+            }
+          ]
+        },
+        {
+          "view": "Subscription Rules",
+          "open_action": "getByRole('cell', { name: 'Subscription Rules' }).click() on Program Details",
+          "fields": [
+            {
+              "label": "Rule text",
+              "value": "If an account is enrolled in a program, all the devices under that account will have secondary subscriptions"
+            },
+            {
+              "label": "Allow contracts at an account level",
+              "value": "checked"
+            },
+            {
+              "label": "Eligible account types",
+              "value": "Residential"
+            },
+            {
+              "label": "Eligible rate classes",
+              "value": "None"
+            },
+            {
+              "label": "Allow contracts at a service point level",
+              "value": "unchecked"
+            }
+          ]
+        }
+      ],
+      "unverifiable_in_ui": [
+        {
+          "assertion": "Every resource resolved at the primary subscription level is dispatched exactly once",
+          "ui_evidence_available": "Event dialog shows '# Targeted resources' count (2 for the observed event); the Primary subscription list shows 4 accounts / 4 service points / 3 devices",
+          "suggested_verification": "API"
+        },
+        {
+          "assertion": "No resource outside the targeted scope (entire program vs group) is dispatched",
+          "ui_evidence_available": "Event dialog shows Dispatch type (PROGRAM observed); no group-scoped event was observed",
+          "suggested_verification": "API"
+        },
+        {
+          "assertion": "No notification is sent when no notification configuration exists",
+          "ui_evidence_available": "Event dialog shows blank Template and Notification time '-'",
+          "suggested_verification": "logs"
+        },
+        {
+          "assertion": "Dispatch results per resource",
+          "ui_evidence_available": "Dispatch Feedback dialog (showed 'No dispatch feedback found' for a past Draft event)",
+          "suggested_verification": "DB"
+        }
+      ],
+      "observed_validations": [],
+      "alternate_paths": [
+        "Dashboard > Events List and Reports > Events list events across programs (read-only observed)"
+      ],
+      "end_state": "Event, subscription and notification settings reviewed read-only; no event created, dispatched or edited",
+      "requires_human_authorization": false,
+      "exploration_status": "PARTIALLY_EXPLORED",
+      "blocked_reason": "No UI path to create or dispatch an event was found. Checked: Program Details > Events (no Add button), Reports > Events (row Actions icon button opens no visible menu; function unknown), Energy markets (Add product only), Dashboard Events List (read-only). No group-scoped or >1-day-ahead event was observed. Event creation may be API-, scheduler- or optimizer-driven.",
+      "confidence": "MEDIUM",
+      "evidence_notes": [
+        "Observed 2026-11-23 on the QA tenant using playwright-cli snapshots after pages settled",
+        "Events tab snapshot showed only a table and tab list, no Add/Create event button",
+        "Both observed events were Draft, dated Oct 28, 2026 (past relative to Nov 23, 2026)",
+        "Reports > Events: clicking the row Actions icon button produced no menu or dialog in the snapshot; purpose unknown",
+        "Energy markets page exposes 'Add product' and a products table (Name, ID, Market, Product type, Commitment type, Programs); no event creation"
+      ]
+    }
+  ],
+  "coverage": {
+    "scope": "2026-11-24 dashboard case follow-up; prior journeys are preserved and were not re-explored",
+    "nav_items": [
+      {"label": "Dashboard", "route": "/#/pages/sched/vpp", "status": "PARTIALLY_EXPLORED", "journey_ids": ["UJ-001"], "evidence": "Earlier shared-session login: .playwright-cli/dashboard-readonly-20261124-current-login.yml; later isolated dashboard: .playwright-cli/page-2026-11-24T09-58-27-585Z.yml; dashboard navigation control not rechecked"}
+    ],
+    "detail_page_tabs": [],
+    "tables": [
+      {"page": "Dashboard - Market products grouping (historical)", "table": "Programs", "row_opened": false, "reason_if_not_opened": "Historical snapshot only; no authenticated dashboard in the current session."},
+      {"page": "Dashboard - Programs grouping (historical)", "table": "Market products", "row_opened": false, "reason_if_not_opened": "Historical snapshot only; no authenticated dashboard in the current session."},
+      {"page": "Dashboard Events dialog - Market products grouping (historical)", "table": "Events", "row_opened": false, "reason_if_not_opened": "One row is visible in the historical snapshot; opening it was not verified and no authenticated dashboard is available now."},
+      {"page": "Dashboard - Market products grouping (isolated session)", "table": "Programs and graphs", "row_opened": false, "reason_if_not_opened": "Rows and graph states were observed but no row detail was opened before the session returned to login."},
+      {"page": "Select Market Product (isolated session)", "table": "Market products", "row_opened": false, "reason_if_not_opened": "A product row was selected to establish dashboard context; no row detail was opened."}
+    ],
+    "entity_types_swept": [
+      {"dimension": "Dashboard grouping (historical menu)", "values_seen": ["Market products", "Programs"], "values_explored": ["Market products"], "reason_unexplored": "Programs grouping was observed historically but not rechecked in the later isolated session before reauthentication stopped the exploration."},
+      {"dimension": "Flex capacity (historical menu)", "values_seen": ["All (+/-)", "Down DR (+)", "Up DR (-)"], "values_explored": [], "reason_unexplored": "Options were observed historically; selection effects were not checked in the later isolated session before reauthentication stopped the exploration."}
+    ],
+    "workflow_gaps": [],
+    "frontier": [
+      {"element": "Programs grouping, Flex capacity, Chart layers, date navigation and Events List", "page": "Dashboard", "reason_not_visited": "The isolated session returned to login and reauthentication did not confirm dashboard access; no further exploration was attempted."},
+      {"element": "Time dialog Set and Cancel outcomes, and time-format changes", "page": "Dashboard", "reason_not_visited": "Set was not used; the open duration menu intercepted Cancel before the session returned to login."},
+      {"element": "All non-dashboard navigation, detail tabs, tables and workflows", "page": "Other previously recorded modules", "reason_not_visited": "Outside this dashboard-only follow-up and no authenticated session was available."}
+    ]
+  },
+  "exploration_limits": [
+    "Only read-only navigation and inspection were performed after sign-in.",
+    "Creation dialogs for programs, accounts, market products, Droop Curves, and message templates were opened and closed without submitting.",
+    "No records, subscriptions, programs, products, messages, or tenant settings were created, edited, deleted, exported, or sent; no dispatch or optimizer command was triggered.",
+    "Service-point/device creation forms, row action menus, deep links, and all Tool destinations were not exhaustively exercised.",
+    "Personal or tenant record values were intentionally excluded from this file."
+  ],
+  "observations": [
+    "The Monitoring Program view displayed Nov 19, 2026 during the Nov 20, 2026 exploration.",
+    "The Dispatch optimizer view remained on Loading Data after selection; this may represent unavailable status data rather than a runnable workflow.",
+    "The Dashboard Events List inspection showed a past event; active, scheduled, or dispatchable event behavior remains unverified.",
+    "The initial page load reported a Content Security Policy warning for an invalid script source; a third-party Tableau script also emitted a parser-blocking warning.",
+    "Programs creation was explored with QA_AUTO_ data on 2026-11-20: create succeeds (201, 'Operation successful'), empty submit is rejected only by the server, duplicate is rejected with 422. The Add Program dialog fails with 'configuring program types - please try again' if opened before the page has finished loading (wait for networkidle).",
+    "2026-11-20: structured form data captured for Add Account, Add market product, Add Droop Curve, Add message template (2 steps) and Add Custom Attribute. Empty submits are rejected by the server (400) with 'Add resource failed' panels; no client-side validation. Valid creation not yet exercised for these forms."
+  ]
+}
