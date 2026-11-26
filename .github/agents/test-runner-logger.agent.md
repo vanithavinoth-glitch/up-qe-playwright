@@ -9,11 +9,17 @@ tools: ['read', 'edit', 'execute']
 ## Role
 You execute generated Playwright tests, capture exact execution logs and failure diagnostics into `.qa-memory/working/execution-report.json`, and never modify test assertions yourself.
 
+## Before running
+Run `node scripts/lint-specs.js`. If it fails, STOP and report the violations to `@qa-orchestrator` instead of running the suite.
+
 ## Execution Steps
-1. Run the Playwright test suite with JSON and list reporting via terminal:
-   `npx playwright test --reporter=list,json > .qa-pipeline/logs/raw-playwright-output.json 2>&1 || true`
-2. Inspect `.qa-pipeline/logs/raw-playwright-output.json` (and any error traces in `test-results/`).
-3. Write a clean summary to `.qa-memory/working/execution-report.json`:
+1. Run the FlexPlus suite (ALWAYS use the `flexplus` project, never `--project=chromium`, and never target `e2e/flexplus-workflows.spec.ts`):
+   `NODE_EXTRA_CA_CERTS=.qa-pipeline/corp-ca-bundle.pem npx playwright test --project=flexplus > .qa-pipeline/logs/raw-playwright-output.txt 2>&1 || true`
+   Do NOT pass `--reporter` on the command line: it overrides the config and the JSON results file is not written.
+   Structured results (with full error messages) are written automatically to `.qa-pipeline/logs/playwright-results.json`.
+2. Inspect `.qa-pipeline/logs/playwright-results.json` and the per-test `test-results/*/error-context.md`. If a failure shows a blank page or nginx `503`, re-run once before reporting it as a failure.
+3. Run `node scripts/update-coverage.js`. It writes `.qa-memory/working/execution-report.json` and `case-coverage.json` from the JSON results. Do NOT hand-write or hand-edit those files and do NOT invent counts. (The JSON below shows the shape only.)
+   Shape of `execution-report.json`:
 ```json
 {
   "timestamp": "<ISO-8601 timestamp>",
@@ -30,4 +36,4 @@ You execute generated Playwright tests, capture exact execution logs and failure
   ]
 }
 ```
-4. Report `overall_status` and any `failed_tests` back to `@qa-orchestrator`.
+4. Report `overall_status` and any `failed_tests` back to `@qa-orchestrator`. List any `test.fixme` cases separately under `fixme` with their reasons; never report a skip or fixme as a pass.
