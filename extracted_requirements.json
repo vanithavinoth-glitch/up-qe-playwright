@@ -1,206 +1,41 @@
 [
   {
     "id": "REQ-001",
-    "source_file": ".qa-pipeline/inputs/sample-login-spec.md",
-    "feature": "User Authentication",
-    "type": "user_story",
-    "statement": "As a registered user, I want to log into the portal with my email and password so I can access my dashboard."
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Valid sign-in reaches the VPP dashboard",
+    "preconditions": "The configured APP_URL is reachable and the test account can sign in. Use only https://qa-test-flexkiosk.ks.autogridsystems.net and QA-only data. Store credentials in environment configuration, not in specs, reports, screenshots, or TestRail case text.",
+    "steps": "1. Navigate to APP_URL.\n2. Sign in with the configured QA account.",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Authentication succeeds and the VPP dashboard loads.",
+    "roles": "Configured QA account (documented role details: unknown)",
+    "validations": "unknown",
+    "notes": "Exact dashboard URL, heading, or welcome element after successful sign-in: unknown (not specified in the document)."
   },
   {
     "id": "REQ-002",
-    "source_file": ".qa-pipeline/inputs/sample-login-spec.md",
-    "feature": "User Authentication",
-    "type": "acceptance_criterion",
-    "statement": "Entering a valid email and password redirects to `/dashboard` and displays a \"Welcome\" banner."
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Wrong password is denied and no authenticated view is exposed (user stays on sign-in page)",
+    "preconditions": "The configured APP_URL is reachable. The document specifies this is attempted in a later isolated test. Do not record credentials in test artifacts.",
+    "steps": "1. Navigate to APP_URL.\n2. Attempt sign-in with invalid credentials (incorrect password).",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Access is denied with an actionable validation or authentication error; no authenticated view is exposed (the user remains on the sign-in page).",
+    "roles": "unknown",
+    "validations": "An actionable validation or authentication error is shown; exact error message text: unknown.",
+    "notes": "The document groups invalid and missing credentials under one step: 'Attempt invalid or missing credentials in a later isolated test.' Specific wrong-password error wording and any lockout behavior: unknown."
   },
   {
     "id": "REQ-003",
-    "source_file": ".qa-pipeline/inputs/sample-login-spec.md",
-    "feature": "User Authentication",
-    "type": "acceptance_criterion",
-    "statement": "Leaving the email or password field blank keeps the \"Sign In\" button disabled or shows \"Required field\"."
-  },
-  {
-    "id": "REQ-004",
-    "source_file": ".qa-pipeline/inputs/sample-login-spec.md",
-    "feature": "User Authentication",
-    "type": "acceptance_criterion",
-    "statement": "Entering an invalid password displays \"Invalid email or password\" without revealing which field failed."
-  },
-  {
-    "id": "f01",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Register and verify a FlexSaver Lite account",
-    "preconditions": "QA FlexSaver Lite deployment and dedicated QA email inbox.",
-    "step_count": "3.0",
-    "steps": "1. Open the configured FlexSaver URL and choose password-based sign-up.\n2. Complete the enabled registration fields with valid QA data and submit.\n3. Enter the correct email verification code.",
-    "expected_results": "1. The configured FlexSaver registration form is displayed.\n2. The registration is accepted and a security verification code is sent to the QA email address.\n3. Signup succeeds; the user accesses FlexSaver and the account, service point, and contact are created."
-  },
-  {
-    "id": "f02",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Reject invalid signup and verification",
-    "preconditions": "QA FlexSaver Lite deployment with disposable test identities.",
-    "step_count": "2.0",
-    "steps": "1. Attempt signup with a missing required value or invalid email/ZIP.\n2. Begin signup with a fresh QA identity and enter an incorrect verification code.",
-    "expected_results": "1. Validation identifies the invalid or missing value and signup does not complete.\n2. Verification fails, the account is not authenticated, and retry or resend guidance is available."
-  },
-  {
-    "id": "f03",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Sign in with FlexSaver Lite credentials",
-    "preconditions": "Provisioned QA user in password-authenticated FlexSaver Lite.",
-    "step_count": "2.0",
-    "steps": "1. Open FlexSaver and sign in with the QA email and password.\n2. Sign out and submit an incorrect password.",
-    "expected_results": "1. The expected QA user is authenticated and My FlexSaver is displayed.\n2. Authentication is rejected and protected account data is not displayed."
-  },
-  {
-    "id": "f04",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Sign in with FlexConnect SSO and accept terms",
-    "preconditions": "FlexConnect QA deployment and test identity provider account.",
-    "step_count": "3.0",
-    "steps": "1. Open FlexSaver and authenticate through the configured utility identity provider.\n2. Review and accept Terms and Conditions.\n3. Repeat with a denied or cancelled identity-provider login.",
-    "expected_results": "1. SSO returns the authenticated user to the FlexSaver terms flow without exposing another account.\n2. Utility account details load and the expected FlexSaver account and resource hierarchy are displayed.\n3. The user remains unauthenticated and protected content is unavailable."
-  },
-  {
-    "id": "f05",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Consent to first-login utility data linking",
-    "preconditions": "Green Button CMD test deployment with an account that has not linked utility data.",
-    "step_count": "4.0",
-    "steps": "1. Sign in and start first-login utility-account linking.\n2. Review requested customer/meter data points, terms, conditions, and privacy statements.\n3. Accept and complete utility authorization.\n4. Repeat with a fixture and decline consent or cancel authorization.",
-    "expected_results": "1. The app presents the configured account-linking action.\n2. The user can inspect all disclosures before granting consent.\n3. A secure link is established and data becomes available only after consent.\n4. Consent is not recorded and utility data is not transferred."
-  },
-  {
-    "id": "f06",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Review My FlexSaver dashboard and device statuses",
-    "preconditions": "QA account with known rewards, savings, devices, and enrollment states.",
-    "step_count": "3.0",
-    "steps": "1. Sign in and open My FlexSaver from the landing page and left navigation.\n2. Review fixtures for pending review, inactive account, and staged enrollment statuses.\n3. Refresh and revisit the dashboard, then sign in as an empty QA account.",
-    "expected_results": "1. The dashboard summarizes earnings, energy savings, and enrolled devices for the signed-in user.\n2. Dashboard messages accurately identify each configured status.\n3. Statuses persist correctly and the empty account shows no stale data from the previous user."
-  },
-  {
-    "id": "f07",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Enroll an existing supported device",
-    "preconditions": "Eligible QA account and supported, unenrolled device with vendor QA credentials.",
-    "step_count": "4.0",
-    "steps": "1. Open Enroll and select the tile matching the supported QA device.\n2. Complete vendor enrollment using vendor QA credentials.\n3. Return to My FlexSaver and inspect Enrolled Devices.\n4. Repeat with invalid vendor credentials or cancel before completion.",
-    "expected_results": "1. Only configured vendor/device workflows are offered and the selected vendor flow opens.\n2. The device is enrolled or its correct pending/staged status is displayed.\n3. The device appears once with the correct enrollment status.\n4. No false successful enrollment is recorded and the user can retry or exit."
-  },
-  {
-    "id": "f08",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Remove a device rejected by utility approval",
-    "preconditions": "QA account with a device whose required utility approval will be rejected.",
-    "step_count": "2.0",
-    "steps": "1. Open My FlexSaver and inspect the device before the utility approval result.\n2. Process the fixture as rejected by utility approval and refresh the user view.",
-    "expected_results": "1. The device displays its configured pending approval state.\n2. The rejected device is removed from the enrolled inventory and the configured email notification is sent."
-  },
-  {
-    "id": "f09",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Buy and auto-enroll a device through Marketplace",
-    "preconditions": "Test deployment with Buy Devices and sandbox Marketplace enabled; approved test payment fixture.",
-    "step_count": "3.0",
-    "steps": "1. Open Buy Devices from FlexSaver.\n2. Select a supported device and complete checkout with sandbox payment data.\n3. Return to FlexSaver and inspect enrolled devices and status.",
-    "expected_results": "1. The FlexSaver Marketplace opens and the test catalog is available.\n2. A test order confirmation appears and no live charge is made.\n3. The purchased device is automatically enrolled in the DR program or shows its configured enrollment status."
-  },
-  {
-    "id": "f10",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Review yearly wallet earnings and savings",
-    "preconditions": "QA account with known wallet data across multiple years and configured incentive types.",
-    "step_count": "4.0",
-    "steps": "1. Open My Wallet and select a year with known rewards and savings.\n2. Compare displayed totals and categories with the fixture.\n3. Select another year and return to the first year.\n4. Use a year/account without eligible rewards or savings.",
-    "expected_results": "1. Total Earnings to Date, Total Savings to Date, and Wallet Summary are displayed for the selected year.\n2. Only configured incentives are shown and totals match the fixture.\n3. Values update by year and restore accurately when the original year is selected.\n4. A clear zero or empty state appears."
-  },
-  {
-    "id": "f11",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Review Power Hours tips, upcoming events, and history",
-    "preconditions": "QA account with configured tips, upcoming DR event, and past participation fixture.",
-    "step_count": "4.0",
-    "steps": "1. Open Power Hours.\n2. Open Get Ready, review tips, and return to Power Hours.\n3. Open History for the QA account.\n4. Repeat with an account without upcoming or past events.",
-    "expected_results": "1. Configured Get Ready tips and upcoming-event carousel are displayed with fixture event details.\n2. Tips are accessible and navigation back to the event overview works.\n3. Participation History provides the fixture’s past demand-response and energy-saving event breakdown.\n4. A clear empty state appears and no other account’s events are shown."
-  },
-  {
-    "id": "f12",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Review battery discharge event history",
-    "preconditions": "QA battery account with known discharge event records.",
-    "step_count": "2.0",
-    "steps": "1. Sign in and open Power Hours History or the configured battery event history.\n2. Inspect one or more known discharge entries.",
-    "expected_results": "1. Battery discharge history is available for the battery fixture.\n2. Each entry shows the correct event date, time, and verified load-shed kWh metrics."
-  },
-  {
-    "id": "f13",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Refer a friend and verify referral attribution",
-    "preconditions": "QA referrer eligible for campaign, test participant, and utility referral verification fixture.",
-    "step_count": "3.0",
-    "steps": "1. Open Refer a Friend and select Refer.\n2. Open the link in a separate test context and complete participant signup.\n3. Review participant list and earnings before and after utility verification.",
-    "expected_results": "1. A referral URL is generated and can be copied or shared.\n2. The link routes to the utility DR participation page and attributes signup to the QA referrer when supported.\n3. The signup is listed as configured and referral bonus is awarded only after successful utility verification."
-  },
-  {
-    "id": "f14",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Review and update account and notification preferences",
-    "preconditions": "QA user with editable contact and language notification preferences.",
-    "step_count": "4.0",
-    "steps": "1. Open Account Details.\n2. Update an editable contact value and notification language, then save.\n3. Navigate away, return, and reload Account Details.\n4. Attempt to save an invalid editable value.",
-    "expected_results": "1. The signed-in user’s registration name and login email are displayed.\n2. Configured changes are confirmed for the current account.\n3. Saved contact and language values persist and login identity remains unchanged.\n4. The invalid value is rejected with clear validation and existing valid values remain intact."
-  },
-  {
-    "id": "f15",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Reject sign-in attempts with missing required credentials",
-    "preconditions": "Provisioned QA user in password-authenticated FlexSaver Lite.",
-    "step_count": "2.0",
-    "steps": "1. Open the FlexSaver sign-in page and submit the form with both email and password blank.\n2. Enter the QA email address, leave the password blank, and submit again.",
-    "expected_results": "1. Required-field validation is shown and the user remains unauthenticated.\n2. Password validation is shown; sign-in is rejected and protected account data is not displayed."
-  },
-  {
-    "id": "f16",
-    "source_file": ".qa-pipeline/inputs/Test Cases - Customer Facing Document.xlsx",
-    "sheet": "combined_test_cases",
-    "status": "Uploaded",
-    "title": "Reject sign-in with a wrong password",
-    "preconditions": "A provisioned QA user account exists in the password-authenticated FlexSaver Lite environment, and the tester knows the account email but will use an incorrect password.",
-    "step_count": "2.0",
-    "steps": "1. Open FlexSaver Lite and enter the provisioned QA user's email address and an incorrect password, then submit the sign-in form.\n2. Correct the password and submit the sign-in form again.",
-    "expected_results": "1. Sign-in is rejected with a clear, non-sensitive error message; the user remains unauthenticated and protected account data is not displayed.\n2. Sign-in succeeds and the expected QA user's account is displayed, confirming the prior failure did not lock or alter the account."
+    "source_file": "specs/flexplus-test-plan.md",
+    "feature": "Sign in and reach the application",
+    "type": "documented_flow",
+    "title": "Empty/missing credentials are denied and no authenticated view is exposed (user stays on sign-in page)",
+    "preconditions": "The configured APP_URL is reachable. The document specifies this is attempted in a later isolated test. Do not record credentials in test artifacts.",
+    "steps": "1. Navigate to APP_URL.\n2. Attempt sign-in with missing credentials (empty Username and/or Password).",
+    "expected_results": "1. The FlexPlus sign-in page is displayed with Username, Password, and Log in controls.\n2. Access is denied with an actionable validation or authentication error; no authenticated view is exposed (the user remains on the sign-in page).",
+    "roles": "unknown",
+    "validations": "An actionable validation or authentication error is shown; exact required-field message text and whether the Log in control is disabled: unknown.",
+    "notes": "The document groups invalid and missing credentials under one step: 'Attempt invalid or missing credentials in a later isolated test.' Behavior differences between empty username, empty password, or both empty: unknown."
   }
 ]
